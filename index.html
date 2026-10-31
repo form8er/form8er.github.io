@@ -3146,6 +3146,49 @@ input[type=range]{touch-action:pan-y}
 @media (max-width:420px){#pset .sru input[type=number]{width:64px!important}#pset .sru select{min-width:66px!important}#pset .sr{column-gap:10px}}
 
 body:has(#sheet.on #pset:not([hidden])) #toast{visibility:hidden}
+/* ===== light panel: even rhythm, compact controls, smooth scroll */
+#lta .lpbody{touch-action:pan-y;overscroll-behavior:contain}
+#lta .lpsec{padding:10px 14px 12px!important}
+#lta .lpst{font-size:10.5px!important;letter-spacing:.08em!important;margin:0 0 6px!important;color:#8f94a3!important}
+#lta .lprow{display:grid!important;grid-template-columns:88px minmax(0,1fr);align-items:center!important;column-gap:10px;min-height:40px!important;padding:0!important}
+#lta .lprow.lpwrap{align-items:center!important}
+#lta .lpl{width:auto!important;font-size:12px!important;font-weight:700!important;color:#9a9fad!important}
+#lta .lpc{flex-wrap:nowrap!important;gap:6px!important;min-height:34px}
+#lta .lpc.lpcl,#lta .lpc.lpcnt{flex-wrap:wrap!important}
+#lta .lpc .rgb{width:28px!important;height:28px!important;min-width:28px!important;min-height:28px!important;padding:0!important;border-radius:7px!important;font-size:15px!important;line-height:1!important;flex:none;background:#20222b!important;border:1px solid #323543!important}
+#lta .lpc input[type=range]{flex:1 1 auto;min-width:40px;margin:0 2px}
+#lta .lpc>b{min-width:42px!important;width:42px;flex:none;text-align:right;font-size:12px!important}
+#lta .lpbtn{min-height:30px!important;padding:0 12px!important;font-size:12px!important}
+#lta .lphint{font-size:11.5px;color:#8f94a3}
+#lta .lpseg button{min-height:30px!important}
+#lta .lpact{display:grid!important;grid-template-columns:1fr 1fr;gap:6px!important;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px))!important;overflow:visible!important}
+#lta .lpact button{min-height:34px!important;font-size:12px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 8px!important}
+#lta .lpcl{gap:7px!important}
+#lta .lpcl button{width:26px!important;height:26px!important;min-width:26px!important;min-height:26px!important}
+#lta .lpcl .lpcus{position:relative;background:conic-gradient(#ff3b30,#ffcc00,#34c759,#00c7ff,#5856d6,#ff2d55,#ff3b30)!important}
+#lta .lpcl .lpcus::after{content:'+';position:absolute;inset:4px;border-radius:50%;background:var(--lcc,#14151d);color:#fff;font:800 13px/18px sans-serif;text-align:center}
+#lta .lpcl .lpcus.on::after{content:''}
+#lta .lpcl .lprec{position:relative}
+#ltcpk{position:fixed;left:-100px;top:0;width:40px;height:40px;opacity:0;pointer-events:none}
+/* ===== placed marks list */
+#pset #mlist{margin-top:8px}
+#pset .mlhd{font-size:11px;font-weight:700;letter-spacing:.06em;color:#8f94a3;margin:14px 4px 6px}
+#pset .mlwrap{background:#15161d;border:1px solid #262833;border-radius:12px;overflow:hidden}
+#pset .mlr{display:grid!important;grid-template-columns:36px 70px minmax(0,1fr) auto 30px!important;gap:8px!important;align-items:center;margin:0!important;padding:9px 12px;border-top:1px solid #262833}
+#pset .mlwrap .mlr:first-child{border-top:0}
+#pset .mlr input[type=color]{order:1;width:36px!important;height:30px!important;padding:2px!important}
+#pset .mlr select{order:2;min-width:0!important;width:70px!important;max-width:none!important}
+#pset .mlr input[type=text]{order:3;min-width:0;width:100%;text-align:left!important}
+#pset .mlr small{order:4;font-size:11px!important;color:#c9ccd6!important;background:#20222b;border:1px solid #323543;border-radius:999px;padding:3px 8px}
+#pset .mlr [data-k=del]{order:5;width:30px!important;height:30px!important;min-width:30px!important;min-height:30px!important}
+#pset .mlr [data-k=del] svg{width:16px;height:16px}
+@media (max-width:420px){#pset .mlr{grid-template-columns:34px 62px minmax(0,1fr) 30px!important;row-gap:6px!important}#pset .mlr small{grid-column:1/4;justify-self:start;order:6}#pset .mlr [data-k=del]{grid-column:4;grid-row:1}}
+#lta{max-height:min(62vh,660px)!important}
+#lta .lpc.lpcnt{display:grid!important;grid-template-columns:repeat(8,minmax(0,1fr));gap:2px!important;width:100%}
+#lta .lpcnt button{min-width:0!important;padding:0!important;min-height:30px!important}
+#lta .lpact{gap:6px!important;padding:8px 14px calc(8px + env(safe-area-inset-bottom,0px))!important}
+#lta .lpact button{min-height:32px!important}
+
 </style>
 </head>
 <body>
@@ -4064,7 +4107,7 @@ $('pcl').value=String(S.pclean!=null?S.pclean:2);
 $('mgd').textContent='マグネット(線に吸着) '+(S.mg.d?'ON':'OFF');$('mgd').classList.toggle('pri',!!S.mg.d);$('mvd').value=S.mvd||'';$('mvd').placeholder='全部';$('ghb').textContent='前の形からの動き '+(S.gh?'ON':'OFF');$('ghb').classList.toggle('pri',!!S.gh);
 const md=S.mdef||{};$('mds').value=md.s||'x';$('mdc').value=md.c||'#888888';document.querySelectorAll('#mdsc button').forEach(b=>b.classList.toggle('on',+b.dataset.v===mscope));mlistUI()}
 function mlistUI(){const sc=S.scenes[S.cur].mk||[],all=[...S.marks.map(m=>[m,0]),...sc.map(m=>[m,1])].filter(([m])=>!m.k);
-$('mlist').innerHTML=all.length?all.map(([m,c])=>`<div class="mlr" data-m="${m.id}"><input data-k="l" type="text" maxlength="40" value="${esc(m.l||'')}" placeholder="(文字なし)"><select data-k="s">${[['x','×'],['o','○'],['dot','●'],['sq','■'],['tri','▲'],['none','文字']].map(([v,t])=>`<option value="${v}"${(m.s||'x')===v?' selected':''}>${t}</option>`).join('')}</select><input data-k="c" type="color" value="${m.c&&/^#/.test(m.c)?m.c:'#888888'}" aria-label="色"><small>${c?'このカウント':'共通'}</small><button data-k="del" class="ib" aria-label="削除">${IC.del}</button></div>`).join(''):'<p class="hint">まだ印はありません。立ち位置画面のピンで置けます。</p>'}
+$('mlist').innerHTML=all.length?all.map(([m,c])=>`<div class="mlr" data-m="${m.id}"><input data-k="l" type="text" maxlength="40" value="${esc(m.l||'')}" placeholder="(文字なし)"><select data-k="s">${[['x','×'],['o','○'],['dot','●'],['sq','■'],['tri','▲'],['none','文字']].map(([v,t])=>`<option value="${v}"${(m.s||'x')===v?' selected':''}>${t}</option>`).join('')}</select><input data-k="c" type="color" value="${m.c&&/^#/.test(m.c)?m.c:'#888888'}" aria-label="色"><small>${c?'このカウント':'全カウント'}</small><button data-k="del" class="ib" aria-label="削除">${IC.del}</button></div>`).join(''):'<p class="hint">まだ印はありません。立ち位置画面のピンで置けます。</p>'}
 $('mlist').oninput=e=>{const r=e.target.closest('.mlr');if(!r)return;const m=findMark(+r.dataset.m);if(!m)return;const k=e.target.dataset.k;if(k==='l')m.l=e.target.value;else if(k==='s')m.s=e.target.value;else if(k==='c')m.c=e.target.value;else return;draw();save()};
 $('mlist').onclick=e=>{const b=e.target.closest('[data-k="del"]');if(!b)return;const id=+b.closest('.mlr').dataset.m;S.marks=S.marks.filter(m=>m.id!==id);S.scenes.forEach(sc=>{if(sc.mk)sc.mk=sc.mk.filter(m=>m.id!==id)});if(selM===id)selM=null;mlistUI();draw();save()};
 $('mds').onchange=e=>{S.mdef={...(S.mdef||{}),s:e.target.value};save()};$('mdc').oninput=e=>{S.mdef={...(S.mdef||{}),c:e.target.value};save()};
@@ -4922,7 +4965,7 @@ function stVis(){if(mode!=='s'||!S||$('app').hidden)return;const els=[...st.quer
 
 function addCross(){const m=mainS()||S.shapes.find(q=>!q.gk);if(!m){toast('メインステージがありません');return}const n=Math.max(0,...S.shapes.map(q=>q.id))+1,L=10*G,cx=S.cx,y0=m.y+m.h;S.shapes.push({id:n,t:'p',x:cx-L/2,y:y0,w:L,h:L,part:'runway',nz:'n',cr:{b:2,cy:.5},lb:'十字の花道'});selS=n;growWorld();partsUI();tools();vbUpd();draw();save();setTimeout(stVis,30);toast('十字の花道を追加しました（角の点で大きさ、回転も十字のまま）',0,'joy')}
 
-const APPVN=196,APPMV='1.0.0',APPVS=`ver.${APPMV}（2026/10/30）`,APPV=`ver.${APPMV} (build ${APPVN})`,SUPPORT_MAIL='form8er@gmail.com';
+const APPVN=197,APPMV='1.0.0',APPVS=`ver.${APPMV}（2026/10/30）`,APPV=`ver.${APPMV} (build ${APPVN})`,SUPPORT_MAIL='form8er@gmail.com';
 const isNative=()=>{try{return!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform())}catch(e){return false}};
 const isStandalone=()=>{try{return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}catch(e){return false}};
 (()=>{try{const C=window.Capacitor,H=C&&C.Plugins&&C.Plugins.Haptics;if(H&&isNative()){Object.defineProperty(navigator,'vibrate',{configurable:true,value:ms=>{try{const v=Array.isArray(ms)?ms[0]:ms;H.impact({style:v>=15?'MEDIUM':'LIGHT'})}catch(e){}return true}})}}catch(e){}})();
@@ -6997,6 +7040,14 @@ const up=e=>{if(!G2||e.pointerId!==G2.id)return;e.stopPropagation();const g=G2;G
 LEGAL.privacy='https://form8er.github.io/privacy.html';LEGAL.support='https://form8er.github.io/support.html';
 LEGAL.terms='https://form8er.github.io/terms.html';
 document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('#devpb')){DEVP=null;try{const b=$('devpb');if(b)b.classList.toggle('on',devPlus());planUI();tools();draw()}catch(x){}}});
+// ===== V197: light colour picker + placed-mark list
+var LTREC=(()=>{try{return JSON.parse(localStorage.getItem('fmltrec')||'[]').filter(c=>/^#[0-9a-f]{6}$/i.test(c)).slice(0,4)}catch(e){return []}})(),LTCK=null;
+{const _p=ltPanelHtml;ltPanelHtml=function(o){let h=_p.apply(this,arguments);try{h=h.replace(/<span class="lpc lpcl">([\s\S]*?)<\/span>/g,(all,inner)=>{const m=inner.match(/data-lt="(col2?):(#[0-9a-fA-F]{3,8})"/);if(!m)return all;const key=m[1],cur=(key==='col2'?o.col2:o.col)||'';const pres=[...inner.matchAll(/data-lt="col2?:(#[0-9a-fA-F]{3,8})"/g)].map(x=>x[1].toLowerCase());const rec=LTREC.filter(c=>!pres.includes(c));const custom=cur&&!pres.includes(cur.toLowerCase())&&!rec.includes(cur.toLowerCase());return `<span class="lpc lpcl">${inner}${rec.map(c=>`<button data-lt="${key}:${c}" class="lprec${cur.toLowerCase()===c?' on':''}" style="background:${c}" aria-label="最近の色"></button>`).join('')}<button class="lpcus${custom?' on':''}" data-ltcus="${key}" data-cur="${esc(cur||'#ffffff')}" style="--lcc:${custom?esc(cur):'#14151d'}" aria-label="ほかの色を選ぶ"></button></span>`})}catch(e){}return h}}
+function ltCusApply(key,v,fin){try{const sp=[...document.querySelectorAll('#lta .lpcl')].find(s=>s.querySelector(`[data-lt^="${key}:"]`));if(!sp)return;const b=document.createElement('button');b.dataset.lt=key+':'+v;b.hidden=true;sp.appendChild(b);b.click();b.remove()}catch(e){}if(fin){const c=v.toLowerCase();LTREC=[c,...LTREC.filter(x=>x!==c)].slice(0,4);try{localStorage.setItem('fmltrec',JSON.stringify(LTREC))}catch(e){}try{ltGal&&ltGal()}catch(e){}}}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-ltcus]');if(!b)return;e.stopPropagation();e.preventDefault();let i=$('ltcpk');if(!i){i=document.createElement('input');i.type='color';i.id='ltcpk';document.body.appendChild(i);let t=0;i.addEventListener('input',()=>{clearTimeout(t);const k=LTCK,v=i.value;t=setTimeout(()=>ltCusApply(k,v,false),60)});i.addEventListener('change',()=>ltCusApply(LTCK,i.value,true))}LTCK=b.dataset.ltcus;const cv=b.dataset.cur||'#ffffff';i.value=/^#[0-9a-f]{6}$/i.test(cv)?cv:'#ffffff';try{if(i.showPicker)i.showPicker();else i.click()}catch(x){i.click()}},true);
+// placed marks: heading + clear scope label
+{const _m=mlistUI;mlistUI=function(){const r=_m.apply(this,arguments);try{const L=$('mlist');if(L&&L.querySelector('.mlr')&&!L.querySelector('.mlwrap')){const n=L.querySelectorAll('.mlr').length;const w=document.createElement('div');w.className='mlwrap';[...L.querySelectorAll('.mlr')].forEach(x=>w.appendChild(x));L.innerHTML=`<div class="mlhd">置いた印（${n}個）</div>`;L.appendChild(w)}}catch(e){}return r}}
+
 let songOpen=-1;
 function lyrAt(c){const sg=segAt(c),bs=S.segs[sg.i].b||8,k8=sg.a+Math.floor((c-sg.a)/bs)*bs,k4=sg.a+Math.floor((c-sg.a)/4)*4;return (S.scenes[k4]||{}).lyr||(S.scenes[k8]||{}).lyr||''}
 function lyrBlk(a,z){const o=[];for(let i=a;i<z;i++){const l=(S.scenes[i]||{}).lyr;if(l)o.push(l)}return o.join(' ')}

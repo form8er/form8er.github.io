@@ -3059,6 +3059,7 @@ html.navc :has(>#isz2){padding-right:56px!important}
 #errbar{position:fixed;left:8px;right:8px;top:calc(env(safe-area-inset-top,0px) + 6px);z-index:9999;background:#b3261e;color:#fff;font:600 12px/1.4 sans-serif;padding:8px 10px;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,.4)}#errbar[hidden]{display:none}
 input[type=range]{touch-action:pan-y}
 .shp,#pay .paysc,#addpk,#ltg,#lta,#sndck .askc,#sndck pre,#askm .askc,#hlp,.hpl{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+#pay .payln{flex-wrap:wrap;gap:6px 14px!important}
 </style>
 </head>
 <body>
@@ -4835,7 +4836,7 @@ function stVis(){if(mode!=='s'||!S||$('app').hidden)return;const els=[...st.quer
 
 function addCross(){const m=mainS()||S.shapes.find(q=>!q.gk);if(!m){toast('メインステージがありません');return}const n=Math.max(0,...S.shapes.map(q=>q.id))+1,L=10*G,cx=S.cx,y0=m.y+m.h;S.shapes.push({id:n,t:'p',x:cx-L/2,y:y0,w:L,h:L,part:'runway',nz:'n',cr:{b:2,cy:.5},lb:'十字の花道'});selS=n;growWorld();partsUI();tools();vbUpd();draw();save();setTimeout(stVis,30);toast('十字の花道を追加しました（角の点で大きさ、回転も十字のまま）',0,'joy')}
 
-const APPVN=194,APPMV='1.0.0',APPVS=`ver.${APPMV}（2026/10/30）`,APPV=`ver.${APPMV} (build ${APPVN})`,SUPPORT_MAIL='form8er@gmail.com';
+const APPVN=195,APPMV='1.0.0',APPVS=`ver.${APPMV}（2026/10/30）`,APPV=`ver.${APPMV} (build ${APPVN})`,SUPPORT_MAIL='form8er@gmail.com';
 const isNative=()=>{try{return!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform())}catch(e){return false}};
 const isStandalone=()=>{try{return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}catch(e){return false}};
 (()=>{try{const C=window.Capacitor,H=C&&C.Plugins&&C.Plugins.Haptics;if(H&&isNative()){Object.defineProperty(navigator,'vibrate',{configurable:true,value:ms=>{try{const v=Array.isArray(ms)?ms[0]:ms;H.impact({style:v>=15?'MEDIUM':'LIGHT'})}catch(e){}return true}})}}catch(e){}})();
@@ -6775,7 +6776,7 @@ const busy=IAPBUSY?' disabled':'';let shop='';
 if(st.plus){shop=`<p class="payt">FORM8ER＋ をご利用中です${st.kind==='trial'?`（無料トライアル中・あと${st.left}日）`:''}</p>${nat?`<button class="payg2" data-pay="manage">サブスクの管理・解約</button>`:''}`}
 else if(web){shop=`<p class="payw">FORM8ER＋ は、App Store版（iPhone・iPad・Mac）でご利用いただけます。<br>Web版では無料版の機能をお使いいただけます。</p>${LEGAL.appstore?`<a class="pri payg payga" href="${LEGAL.appstore}" target="_blank" rel="noopener">App Storeで見る</a>`:''}`}
 else{shop=`${st.kind==='expired'?'<p class="payt payex">FORM8ER＋ の期間が終了しました</p>':''}<div class="payp"><button data-pay="sel:y" class="${PAYSEL==='y'?'on':''}"><i class="pbdg">おすすめ</i><small>年額</small><b>${ypr}</b><em>月あたり ${ymo}</em></button><button data-pay="sel:m" class="${PAYSEL==='m'?'on':''}"><small>月額</small><b>${mpr}</b><em>公演期間だけのご利用に</em></button></div><button class="pri payg" data-pay="buy"${busy}>${IAPBUSY?'処理中…':tri?`${tri} 無料で始める`:`${PAYSEL==='m'?'月額':'年額'}プランで始める`}</button>${tri&&!IAPBUSY?`<p class="payps">無料期間のあと ${cur.p}／${cur.u}（自動更新）</p>`:''}<div class="payl2"><button class="payrs" data-pay="redeem"${busy}>コードをお持ちの方</button><button class="payrs" data-pay="restore"${busy}>購入を復元</button></div>`}
-const legal=`<p class="payln"><a href="${LEGAL.eula}" target="_blank" rel="noopener">利用規約（EULA）</a>${LEGAL.privacy?`<a href="${LEGAL.privacy}" target="_blank" rel="noopener">プライバシーポリシー</a>`:''}</p>`;
+const legal=`<p class="payln">${LEGAL.terms?`<a href="${LEGAL.terms}" target="_blank" rel="noopener">利用規約</a>`:''}<a href="${LEGAL.eula}" target="_blank" rel="noopener">Apple標準EULA</a>${LEGAL.privacy?`<a href="${LEGAL.privacy}" target="_blank" rel="noopener">プライバシーポリシー</a>`:''}</p>`;
 const note=web?'<p class="payn">データは端末内にのみ保存されます。</p>':`<p class="payn">お支払いはApple IDに請求されます。サブスクリプションは、現在の期間が終わる24時間前までに解約しない限り自動で更新されます。無料トライアルは終了後に自動で有料プランに切り替わり、トライアル中に解約すれば料金はかかりません。解約はApp Storeの設定からいつでもできます。<br>データは端末内にのみ保存され、無料版に戻っても作成した構成表はそのまま残ります。</p>${legal}`;
 el.innerHTML=`<div class="payc"><button class="ib payx" data-pay="x" aria-label="閉じる">${IC.close}</button><div class="payh"><span class="payk">PREMIUM</span><b>FORM8ER<span>＋</span></b><small>制作から本番まで、すべての機能を制限なくお使いいただけます。</small></div>${r&&PAYR[r]?`<p class="payr"><svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 018 0v3"/></svg>${PAYR[r]}</p>`:''}${PFG_HTML}${shop}${note}</div>`;el.hidden=false;if(nat&&(!IAPP.y||!IAPP.m))iapProducts()}
 function payAct(a){if(a.startsWith('sel:')){PAYSEL=a.slice(4);payUI(PAYR_LAST);return}if(a==='buy')a=PAYSEL;
@@ -6829,7 +6830,7 @@ const busy=IAPBUSY?' disabled':'';let shop='';
 if(st.plus){shop=`<p class="payt">FORM8ER＋ をご利用中です${st.kind==='trial'?`（無料トライアル中・あと${st.left}日）`:''}${st.dev?'（開発用）':''}</p>${nat&&!st.dev?`<button class="payg2" data-pay="manage">サブスクの管理・解約</button>`:''}`}
 else if(web){shop=`<p class="payw">FORM8ER＋ は、App Store版（iPhone・iPad・Mac）でご利用いただけます。<br>Web版では無料版の機能をお使いいただけます。</p>${LEGAL.appstore?`<a class="pri payg payga" href="${LEGAL.appstore}" target="_blank" rel="noopener">App Storeで見る</a>`:''}`}
 else{const ld=miss&&IAPLD;shop=`${st.kind==='expired'?'<p class="payt payex">FORM8ER＋ の期間が終了しました</p>':''}${miss&&!ld?'<p class="paywarn">App Storeの準備中です。価格を読み込めませんでした。<button data-pay="reload">再読み込み</button></p>':''}<div class="payp"><button data-pay="sel:y" class="${PAYSEL==='y'?'on':''}"><i class="pbdg">おすすめ</i><small>年額</small><b>${ypr}</b><em>月あたり ${ymo}</em></button><button data-pay="sel:m" class="${PAYSEL==='m'?'on':''}"><small>月額</small><b>${mpr}</b><em>公演期間だけのご利用に</em></button></div><button class="pri payg" data-pay="buy"${busy||(miss?' disabled':'')}>${IAPBUSY?'処理中…':ld?'価格を読み込み中…':tri?`${tri} 無料で始める`:`${PAYSEL==='m'?'月額':'年額'}プランで始める`}</button>${tri&&!IAPBUSY&&!miss?`<p class="payps">無料期間のあと ${cur.p}／${cur.u}（自動更新）</p>`:''}<div class="payl2"><button class="payrs" data-pay="redeem"${busy}>コードをお持ちの方</button><button class="payrs" data-pay="restore"${busy}>購入を復元</button></div>`}
-const legal=`<p class="payln"><a href="${LEGAL.eula}" target="_blank" rel="noopener">利用規約（EULA）</a>${LEGAL.privacy?`<a href="${LEGAL.privacy}" target="_blank" rel="noopener">プライバシーポリシー</a>`:''}</p>`;
+const legal=`<p class="payln">${LEGAL.terms?`<a href="${LEGAL.terms}" target="_blank" rel="noopener">利用規約</a>`:''}<a href="${LEGAL.eula}" target="_blank" rel="noopener">Apple標準EULA</a>${LEGAL.privacy?`<a href="${LEGAL.privacy}" target="_blank" rel="noopener">プライバシーポリシー</a>`:''}</p>`;
 const note=web?'<p class="payn">データは端末内にのみ保存されます。</p>':`<p class="payn">お支払いはApple IDに請求されます。サブスクリプションは、現在の期間が終わる24時間前までに解約しない限り自動で更新されます。無料トライアルは終了後に自動で有料プランに切り替わり、トライアル中に解約すれば料金はかかりません。解約はApp Storeの設定からいつでもできます。<br>データは端末内にのみ保存され、無料版に戻っても作成した構成表はそのまま残ります。</p>${legal}`;
 const html=`<div class="payc"><button class="ib payx" data-pay="x" aria-label="閉じる">${IC.close}</button><div class="paysc"><div class="payh"><span class="payk">PREMIUM</span><b>FORM8ER<span>＋</span></b><small>制作から本番まで、すべての機能を制限なくお使いいただけます。</small></div>${r&&PAYR[r]?`<p class="payr"><svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 018 0v3"/></svg>${PAYR[r]}</p>`:''}${PFG_HTML}${note}</div><div class="paybot">${shop}</div></div>`;
 if(el._h!==html||opening){const sc=el.querySelector('.paysc'),y=sc?sc.scrollTop:0;el.innerHTML=html;el._h=html;const s2=el.querySelector('.paysc');if(s2&&!opening)s2.scrollTop=y}el.hidden=false}
@@ -6908,6 +6909,7 @@ const up=e=>{if(!G2||e.pointerId!==G2.id)return;e.stopPropagation();const g=G2;G
 
 // ===== V194: public pages
 LEGAL.privacy='https://form8er.github.io/privacy.html';LEGAL.support='https://form8er.github.io/support.html';
+LEGAL.terms='https://form8er.github.io/terms.html';
 let songOpen=-1;
 function lyrAt(c){const sg=segAt(c),bs=S.segs[sg.i].b||8,k8=sg.a+Math.floor((c-sg.a)/bs)*bs,k4=sg.a+Math.floor((c-sg.a)/4)*4;return (S.scenes[k4]||{}).lyr||(S.scenes[k8]||{}).lyr||''}
 function lyrBlk(a,z){const o=[];for(let i=a;i<z;i++){const l=(S.scenes[i]||{}).lyr;if(l)o.push(l)}return o.join(' ')}

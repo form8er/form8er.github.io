@@ -3291,6 +3291,9 @@ html.navc #app[data-pg] #ctx,html.navc #ctx{padding-bottom:64px!important}
 #sbar .grpbt button:disabled{opacity:.35}
 #sbar .grpbt [data-sb="gdel"]:not(:disabled){color:#ff6b6b}
 #sbar .grpbt .grpok{min-width:64px;background:var(--gn,#1fd655);border-color:transparent;color:#03140a;font-weight:800;font-size:14px}
+#txm .invp{margin:0;font-size:12.5px;line-height:1.6;color:var(--mute)}
+#txm #invin{width:100%;box-sizing:border-box;min-height:44px;font-size:17px;font-weight:800;letter-spacing:.08em;text-align:center;text-transform:uppercase;border-radius:12px;border:1px solid var(--line);background:var(--card2);color:var(--ink)}
+#txm .invmsg{margin:0;min-height:18px;font-size:12px;font-weight:700;color:#ff6b6b}
 </style>
 </head>
 <body>
@@ -5067,7 +5070,7 @@ function stVis(){if(mode!=='s'||!S||$('app').hidden)return;const els=[...st.quer
 
 function addCross(){const m=mainS()||S.shapes.find(q=>!q.gk);if(!m){toast('メインステージがありません');return}const n=Math.max(0,...S.shapes.map(q=>q.id))+1,L=10*G,cx=S.cx,y0=m.y+m.h;S.shapes.push({id:n,t:'p',x:cx-L/2,y:y0,w:L,h:L,part:'runway',nz:'n',cr:{b:2,cy:.5},lb:'十字の花道'});selS=n;growWorld();partsUI();tools();vbUpd();draw();save();setTimeout(stVis,30);toast('十字の花道を追加しました（角の点で大きさ、回転も十字のまま）',0,'joy')}
 
-const APPVN=206,APPMV='1.0.0',APPVS=`ver.${APPMV}（2026/10/30）`,APPV=`ver.${APPMV} (build ${APPVN})`,SUPPORT_MAIL='form8er@gmail.com';
+const APPVN=207,APPMV='1.0.0',APPVS=`ver.${APPMV}（2026/10/30）`,APPV=`ver.${APPMV} (build ${APPVN})`,SUPPORT_MAIL='form8er@gmail.com';
 const isNative=()=>{try{return!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform())}catch(e){return false}};
 const isStandalone=()=>{try{return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}catch(e){return false}};
 (()=>{try{const C=window.Capacitor,H=C&&C.Plugins&&C.Plugins.Haptics;if(H&&isNative()){Object.defineProperty(navigator,'vibrate',{configurable:true,value:ms=>{try{const v=Array.isArray(ms)?ms[0]:ms;H.impact({style:v>=15?'MEDIUM':'LIGHT'})}catch(e){}return true}})}}catch(e){}})();
@@ -7005,7 +7008,7 @@ const py=IAPP.y,pm=IAPP.m,ypr=py&&py.displayPrice||yen(PLAN.price.y),mpr=pm&&pm.
 const cur=PAYSEL==='m'?{p:mpr,u:'月'}:{p:ypr,u:'年'},sp=IAPP[PAYSEL],tri=nat?(sp&&sp.eligible&&sp.introMode==='free'?iapLen(sp):''):(web?'':`${PLAN.trial}日間`);
 const busy=IAPBUSY?' disabled':'';let shop='';
 if(st.plus){shop=`<p class="payt">FORM8ER＋ をご利用中です${st.kind==='trial'?`（無料トライアル中・あと${st.left}日）`:''}</p>${nat?`<button class="payg2" data-pay="manage">サブスクの管理・解約</button>`:''}`}
-else if(web){shop=`<p class="payw">FORM8ER＋ は、App Store版（iPhone・iPad・Mac）でご利用いただけます。<br>Web版では無料版の機能をお使いいただけます。</p>${LEGAL.appstore?`<a class="pri payg payga" href="${LEGAL.appstore}" target="_blank" rel="noopener">App Storeで見る</a>`:''}`}
+else if(web){shop=`<p class="payw">FORM8ER＋ は、App Store版（iPhone・iPad・Mac）でご利用いただけます。<br>Web版では無料版の機能をお使いいただけます。</p>${LEGAL.appstore?`<a class="pri payg payga" href="${LEGAL.appstore}" target="_blank" rel="noopener">App Storeで見る</a>`:''}<div class="payl2"><button class="payrs" data-pay="invite">招待コードをお持ちの方</button></div>`}
 else{shop=`${st.kind==='expired'?'<p class="payt payex">FORM8ER＋ の期間が終了しました</p>':''}<div class="payp"><button data-pay="sel:y" class="${PAYSEL==='y'?'on':''}"><i class="pbdg">おすすめ</i><small>年額</small><b>${ypr}</b><em>月あたり ${ymo}</em></button><button data-pay="sel:m" class="${PAYSEL==='m'?'on':''}"><small>月額</small><b>${mpr}</b><em>公演期間だけのご利用に</em></button></div><button class="pri payg" data-pay="buy"${busy}>${IAPBUSY?'処理中…':tri?`${tri} 無料で始める`:`${PAYSEL==='m'?'月額':'年額'}プランで始める`}</button>${tri&&!IAPBUSY?`<p class="payps">無料期間のあと ${cur.p}／${cur.u}（自動更新）</p>`:''}<div class="payl2"><button class="payrs" data-pay="redeem"${busy}>コードをお持ちの方</button><button class="payrs" data-pay="restore"${busy}>購入を復元</button></div>`}
 const legal=`<p class="payln">${LEGAL.terms?`<a href="${LEGAL.terms}" target="_blank" rel="noopener">利用規約</a>`:''}<a href="${LEGAL.eula}" target="_blank" rel="noopener">Apple標準EULA</a>${LEGAL.privacy?`<a href="${LEGAL.privacy}" target="_blank" rel="noopener">プライバシーポリシー</a>`:''}</p>`;
 const note=web?'<p class="payn">データは端末内にのみ保存されます。</p>':`<p class="payn">お支払いはApple IDに請求されます。サブスクリプションは、現在の期間が終わる24時間前までに解約しない限り自動で更新されます。無料トライアルは終了後に自動で有料プランに切り替わり、トライアル中に解約すれば料金はかかりません。解約はApp Storeの設定からいつでもできます。<br>データは端末内にのみ保存され、無料版に戻っても作成した構成表はそのまま残ります。</p>${legal}`;
@@ -7058,8 +7061,8 @@ const opening=el.hidden,st=planState(),nat=isNative(),web=!nat&&!!window.FMWEB;i
 const py=IAPP.y,pm=IAPP.m,miss=nat&&(!py||!pm),ypr=py&&py.displayPrice||yen(PLAN.price.y),mpr=pm&&pm.displayPrice||yen(PLAN.price.m),ymo=py&&py.displayPrice&&isFinite(+py.price)?prPerMonth(py):yen(Math.round(PLAN.price.y/12));
 const cur=PAYSEL==='m'?{p:mpr,u:'月'}:{p:ypr,u:'年'},sp=IAPP[PAYSEL],tri=nat?(sp&&sp.eligible&&sp.introMode==='free'?iapLen(sp):''):(web?'':`${PLAN.trial}日間`);
 const busy=IAPBUSY?' disabled':'';let shop='';
-if(st.plus){shop=`<p class="payt">FORM8ER＋ をご利用中です${st.kind==='trial'?`（無料トライアル中・あと${st.left}日）`:''}${st.dev?'（開発用）':''}</p>${nat&&!st.dev?`<button class="payg2" data-pay="manage">サブスクの管理・解約</button>`:''}`}
-else if(web){shop=`<p class="payw">FORM8ER＋ は、App Store版（iPhone・iPad・Mac）でご利用いただけます。<br>Web版では無料版の機能をお使いいただけます。</p>${LEGAL.appstore?`<a class="pri payg payga" href="${LEGAL.appstore}" target="_blank" rel="noopener">App Storeで見る</a>`:''}`}
+if(st.plus){shop=`<p class="payt">FORM8ER＋ をご利用中です${st.kind==='trial'?`（無料トライアル中・あと${st.left}日）`:''}${st.kind==='invite'?`（招待コード・${invMD(st.until)}まで）`:''}${st.dev?'（開発用）':''}</p>${nat&&!st.dev?`<button class="payg2" data-pay="manage">サブスクの管理・解約</button>`:''}`}
+else if(web){shop=`<p class="payw">FORM8ER＋ は、App Store版（iPhone・iPad・Mac）でご利用いただけます。<br>Web版では無料版の機能をお使いいただけます。</p>${LEGAL.appstore?`<a class="pri payg payga" href="${LEGAL.appstore}" target="_blank" rel="noopener">App Storeで見る</a>`:''}<div class="payl2"><button class="payrs" data-pay="invite">招待コードをお持ちの方</button></div>`}
 else{const ld=miss&&IAPLD;shop=`${st.kind==='expired'?'<p class="payt payex">FORM8ER＋ の期間が終了しました</p>':''}${miss&&!ld?'<p class="paywarn">App Storeの準備中です。価格を読み込めませんでした。<button data-pay="reload">再読み込み</button></p>':''}<div class="payp"><button data-pay="sel:y" class="${PAYSEL==='y'?'on':''}"><i class="pbdg">おすすめ</i><small>年額</small><b>${ypr}</b><em>月あたり ${ymo}</em></button><button data-pay="sel:m" class="${PAYSEL==='m'?'on':''}"><small>月額</small><b>${mpr}</b><em>公演期間だけのご利用に</em></button></div><button class="pri payg" data-pay="buy"${busy||(miss?' disabled':'')}>${IAPBUSY?'処理中…':ld?'価格を読み込み中…':tri?`${tri} 無料で始める`:`${PAYSEL==='m'?'月額':'年額'}プランで始める`}</button>${tri&&!IAPBUSY&&!miss?`<p class="payps">無料期間のあと ${cur.p}／${cur.u}（自動更新）</p>`:''}<div class="payl2"><button class="payrs" data-pay="redeem"${busy}>コードをお持ちの方</button><button class="payrs" data-pay="restore"${busy}>購入を復元</button></div>`}
 const legal=`<p class="payln">${LEGAL.terms?`<a href="${LEGAL.terms}" target="_blank" rel="noopener">利用規約</a>`:''}<a href="${LEGAL.eula}" target="_blank" rel="noopener">Apple標準EULA</a>${LEGAL.privacy?`<a href="${LEGAL.privacy}" target="_blank" rel="noopener">プライバシーポリシー</a>`:''}</p>`;
 const note=web?'<p class="payn">データは端末内にのみ保存されます。</p>':`<p class="payn">お支払いはApple IDに請求されます。サブスクリプションは、現在の期間が終わる24時間前までに解約しない限り自動で更新されます。無料トライアルは終了後に自動で有料プランに切り替わり、トライアル中に解約すれば料金はかかりません。解約はApp Storeの設定からいつでもできます。<br>データは端末内にのみ保存され、無料版に戻っても作成した構成表はそのまま残ります。</p>${legal}`;
@@ -7380,6 +7383,35 @@ var XPPD=0;document.addEventListener('click',e=>{if(e.target.closest&&e.target.c
 {const _s=setVB;setVB=function(){if(!S)return;return _s.apply(this,arguments)}}
 {const _f=fit;fit=function(){if(!S)return;return _f.apply(this,arguments)}}
 {const _z=zoom;zoom=function(){if(!S)return;return _z.apply(this,arguments)}}
+
+// ===== V207: invite codes (web version only) + stage add panel fits the screen
+// codes are stored only as SHA-256 hashes; each has its own last day (inclusive, local time)
+var INVL=[
+{h:'860020dc0bd81921a6bc41b4fdf93d356dfe5e48d2cf2ebfc989d2e3c02e9cb4',u:'2027-02-04'},
+{h:'39605da98badc85fdc88c5ba7dbcb0e35f1dacb49026f5c0a6549e4c22ce1317',u:'2027-02-04'},
+{h:'664e77b7c5dfc00b23698b4e2ee54110950151e0faba510cb2187de04914ace8',u:'2027-02-04'}];
+function invOn(){return !!window.FMWEB&&!isNative()}
+function invEnd(u){const [y,m,d]=u.split('-').map(Number);return new Date(y,m-1,d,23,59,59).getTime()}
+function invGet(){try{const o=JSON.parse(localStorage.getItem('fminv')||'null');if(!o||!o.h)return null;const e=INVL.find(x=>x.h===o.h);if(!e)return{gone:1};return{h:e.h,u:e.u,end:invEnd(e.u)}}catch(e){return null}}
+function invState(){if(!invOn())return null;const g=invGet();if(!g||g.gone)return g;if(Date.now()>g.end)return{expired:1,u:g.u};return g}
+function invMD(u){const [,m,d]=u.split('-').map(Number);return m+'/'+d}
+async function invHash(c){const n=String(c||'').toUpperCase().replace(/[\s\-ー－_]/g,'').replace(/[Ａ-Ｚ０-９]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-0xFEE0));const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('fm8inv:'+n));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+{const _ps=planState;planState=function(){const r=_ps.apply(this,arguments);try{if(r&&!r.plus&&invOn()){const g=invState();if(g&&g.end)return{plus:true,kind:'invite',until:g.u,left:Math.max(1,Math.ceil((g.end-Date.now())/864e5))}}}catch(e){}return r}}
+{const _p=planUI;planUI=function(){const r=_p.apply(this,arguments);try{const st=planState();if(st.kind==='invite')document.querySelectorAll('.plnm').forEach(e=>e.textContent=`招待コードで利用中（${invMD(st.until)}まで）`);invRow()}catch(e){}return r}}
+function invRow(){try{if(!invOn())return;const pb=$('planb'),row=pb&&pb.closest('.sr');if(!row)return;let r=$('invr');if(!r){row.insertAdjacentHTML('afterend','<div class="sr" id="invr"><span>招待コード<small></small></span><button class="sv" data-invite="1">入力</button></div>');r=$('invr')}const g=invState(),sm=r.querySelector('small'),b=r.querySelector('button');if(g&&g.end){sm.textContent=`${invMD(g.u)}まで有効`;b.textContent='変更'}else{sm.textContent='招待コードをお持ちの方';b.textContent='入力'}}catch(e){}}
+function invAsk(){let m=$('txm');if(!m){m=document.createElement('div');m.id='txm';document.body.appendChild(m)}m.innerHTML=`<div class="askc"><b>招待コードを入力</b><p class="invp">お渡ししたコード（例：FM-XXXX-XXXX）を入力してください。この端末・このブラウザで有料機能が使えるようになります。</p><input id="invin" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="FM-XXXX-XXXX" maxlength="20"><p class="invmsg" id="invmsg"></p><div class="askb"><button data-tv="ok" class="pri">使う</button><button data-tv="x">やめる</button></div></div>`;m.hidden=false;setTimeout(()=>{try{$('invin').focus()}catch(e){}},60);
+const go=async()=>{const v=$('invin').value.trim();if(!v){$('invmsg').textContent='コードを入力してください';return}let h='';try{h=await invHash(v)}catch(e){$('invmsg').textContent='この環境ではコードを確認できません';return}const e=INVL.find(x=>x.h===h);if(!e){$('invmsg').textContent='コードが正しくありません。もう一度ご確認ください';return}if(Date.now()>invEnd(e.u)){$('invmsg').textContent='このコードは有効期限が切れています';return}try{localStorage.setItem('fminv',JSON.stringify({h}));localStorage.removeItem('fminvx')}catch(x){}m.hidden=true;try{const p=$('pay');if(p)p.hidden=true}catch(x){}planUI();try{draw()}catch(x){}toast(`招待コードを登録しました（${invMD(e.u)}まで有効）`,0,'joy')};
+m.onclick=e=>{const b=e.target.closest('[data-tv]');if(!b&&e.target!==m)return;if(b&&b.dataset.tv==='ok'){go();return}m.hidden=true};
+m.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();go()}}}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-invite]');if(!b)return;e.preventDefault();e.stopPropagation();invAsk()},true);
+{const _a=payAct;payAct=function(a){if(a==='invite'){invAsk();return}return _a.apply(this,arguments)}}
+// tell once when the code has run out
+setTimeout(()=>{try{const g=invState();if(g&&(g.expired||g.gone)){let seen=null;try{seen=localStorage.getItem('fminvx')}catch(e){}if(seen!=='1'){try{localStorage.setItem('fminvx','1')}catch(e){}setTimeout(()=>toast(g.expired?'招待コードの期限が切れました。作った構成表はそのまま残っています':'招待コードが使えなくなりました。作った構成表はそのまま残っています',0,'bow'),1200)}}}catch(e){}},0);
+setTimeout(()=>{try{invRow();planUI()}catch(e){}},300);
+// ---- stage "add" panel: always between the top bar and the bottom menu
+function addFit(){try{const a=$('addpk');if(!a||a.hidden)return;const vv=window.visualViewport,vh=vv?vv.height:innerHeight;let top=8;['.ah','#stbar','#hbar'].forEach(q=>{const e=document.querySelector(q);if(e&&e.offsetParent!==null){const r=e.getBoundingClientRect();if(r.height&&r.top<vh*.4)top=Math.max(top,r.bottom+8)}});let bot=vh-8;const m=$('mode');if(m&&!m.hidden&&getComputedStyle(m).display!=='none'&&!document.documentElement.classList.contains('navc')){const r=m.getBoundingClientRect();if(r.top>vh*.5)bot=Math.min(bot,r.top-8)}a.style.setProperty('max-height',Math.max(200,Math.floor(bot-top))+'px','important');a.style.setProperty('bottom',Math.max(8,Math.floor(vh-bot))+'px','important');a.style.setProperty('top','auto','important')}catch(e){}}
+setTimeout(()=>{const a=$('addpk');if(a)try{new MutationObserver(()=>{addFit();requestAnimationFrame(addFit)}).observe(a,{attributes:true,attributeFilter:['hidden']})}catch(e){}},0);
+document.addEventListener('click',()=>setTimeout(addFit,0),true);addEventListener('resize',()=>setTimeout(addFit,60));try{visualViewport&&visualViewport.addEventListener('resize',()=>setTimeout(addFit,60))}catch(e){}
 
 let songOpen=-1;
 function lyrAt(c){const sg=segAt(c),bs=S.segs[sg.i].b||8,k8=sg.a+Math.floor((c-sg.a)/bs)*bs,k4=sg.a+Math.floor((c-sg.a)/4)*4;return (S.scenes[k4]||{}).lyr||(S.scenes[k8]||{}).lyr||''}

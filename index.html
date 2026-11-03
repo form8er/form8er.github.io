@@ -3276,6 +3276,21 @@ body:has(#sheet.on #pset:not([hidden])) #toast{visibility:hidden}
 @media (max-width:440px){.lpkl{display:none}.lpks{display:inline}.lph .lpbtn{padding-left:10px!important;padding-right:10px!important}.lpbtn.lpic{width:32px;min-width:32px}.lph{gap:6px!important}.lph .lpht b{white-space:normal!important;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-height:1.2;word-break:keep-all;overflow-wrap:anywhere}}
 @media (max-width:345px){.lph{gap:4px!important}.lph .lpht b{font-size:14px!important}.lpbtn.lpic{width:30px;min-width:30px}.lph .lpsw0{display:none!important}.lph .lpbtn{padding-left:8px!important;padding-right:8px!important}}
 html.ipad #sbox.full #tlwc{margin-left:auto}
+#stp .stgnp{display:none!important}
+html.navc #app[data-pg] #ctx,html.navc #ctx{padding-bottom:64px!important}
+#ctx{overscroll-behavior:contain}
+#pset .scard>.sr:not([hidden])~[hidden]+.sr{border-top:1px solid var(--sln)!important}
+#sbar .grpsb{display:flex!important;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 2px}
+#sbar .grpst{display:flex;flex-direction:column;flex:1 1 140px;min-width:0}
+#sbar .grpst b{font-size:15px;font-weight:800;color:var(--ink)}
+#sbar .grpst small{font-size:11.5px;color:var(--mute)}
+#sbar .grpbt{display:flex;gap:6px;flex-wrap:nowrap;align-items:center}
+#sbar .grpbt button{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:48px;height:48px;padding:0 6px;border-radius:12px;border:1px solid var(--line);background:var(--card2);color:var(--ink)}
+#sbar .grpbt button svg{width:18px;height:18px}
+#sbar .grpbt button small{font-size:10px;font-weight:700}
+#sbar .grpbt button:disabled{opacity:.35}
+#sbar .grpbt [data-sb="gdel"]:not(:disabled){color:#ff6b6b}
+#sbar .grpbt .grpok{min-width:64px;background:var(--gn,#1fd655);border-color:transparent;color:#03140a;font-weight:800;font-size:14px}
 </style>
 </head>
 <body>
@@ -3443,7 +3458,7 @@ const _raf=window.requestAnimationFrame;window.requestAnimationFrame=function(f)
 const _ael=EventTarget.prototype.addEventListener;const EVT=/^(pointer|touch|mouse|click|wheel|scroll|keydown|input|gesture)/;
 EventTarget.prototype.addEventListener=function(t,f,o){if(typeof f!=='function'||!EVT.test(t))return _ael.call(this,t,f,o);const k=t;const w=function(){const s=now();try{return f.apply(this,arguments)}finally{add(P.ev,k,now()-s)}};try{(f.__pfw||(f.__pfw=new Map())).set(this,w)}catch(e){}return _ael.call(this,t,w,o)};
 const _rel=EventTarget.prototype.removeEventListener;EventTarget.prototype.removeEventListener=function(t,f,o){let w=f;try{if(f&&f.__pfw&&f.__pfw.get(this))w=f.__pfw.get(this)}catch(e){}return _rel.call(this,t,w,o)};
-let last=now();_si.call(window,()=>{const n=now(),d=Math.max(0,n-last-250);last=n;P.lag.n++;P.lag.s+=d;if(d>P.lag.max)P.lag.max=d},250);
+let last=now(),bgT=0;document.addEventListener('visibilitychange',()=>{bgT=now()});_si.call(window,()=>{const n=now(),d=Math.max(0,n-last-250);last=n;if(document.hidden||n-bgT<1500||d>20000)return;P.lag.n++;P.lag.s+=d;if(d>P.lag.max)P.lag.max=d},250);
 P.reset=()=>{P.t0=now();P.iv={};P.ev={};P.raf={n:0,t:0,max:0};P.draw={n:0,t:0,max:0};P.lag={n:0,s:0,max:0};P.busy=0};P.add=add;return P})();
 const typingNow=()=>{const a=document.activeElement;return !!(a&&((a.tagName==='INPUT'&&!['range','checkbox','radio','color','file','button','submit'].includes(a.type))||a.tagName==='TEXTAREA'||a.isContentEditable))};
 (()=>{const ael=EventTarget.prototype.addEventListener;window.addEventListener=function(t,f,o){if(t==='resize'&&typeof f==='function'){const g=f;f=function(e){if(typingNow()){window.__rzPend=1;return}return g.call(this,e)}}return ael.call(window,t,f,o)};document.addEventListener('focusout',()=>{setTimeout(()=>{if(window.__rzPend&&!typingNow()){window.__rzPend=0;window.dispatchEvent(new Event('resize'))}},350)})})();
@@ -3553,7 +3568,7 @@ let W=1200,H=840;const G0=30;let G=30;
 const pal=['#ff2d7a','#1e8fff','#12c99b','#ffc400','#8b5cf6','#06b6d4','#ff7a1a','#84cc16'];
 const SECS=['','イントロ','Aメロ','Bメロ','サビ','Cメロ','間奏','アウトロ'];
 const R=(x,y,w,h,id)=>({id,t:'r',x:x*G,y:y*G,w:w*G,h:h*G}),C=(x,y,w,h,id,dv)=>({id,t:'c',x:x*G,y:y*G,w:w*G,h:h*G,dv});
-function mkShapes(o){const cx=W/G/2,a=[];let id=1,y=2,lx=cx,mN=0;
+function mkShapes(o){const cx=W/G/2,a=[];let id=1,y=5,lx=cx,mN=0;
 const mk=(t,x,yy,w,h,part)=>({...(t==='c'?C(x,yy,w,h,id++,o.dv):R(x,yy,w,h,id++)),part});
 if(o.main){const m=o.main,w=2*m.N,h=m.t==='c'?w:m.D;a.push({...mk(m.t,cx-m.N,y,w,h,'main'),nm:m.N,np:'f',nz:'c',...(m.t==='c'?{rn:Math.max(4,o.dv||8),rst:1}:{})});y+=h;mN=m.N}
 if(o.run){const r=o.run;lx=cx+r.rs;a.push({...mk('r',lx-r.rw/2,y,r.rw,r.rl,'runway'),np:'s',nz:'e',ns:r.ns,nb:r.nb||0,nm:0});y+=r.rl}
@@ -3561,7 +3576,7 @@ if(o.cen){const c=o.cen;a.push(mk(c.t,lx-c.w/2,y,c.w,c.h,'center'));y+=c.h}
 if(o.runs&&o.runs.length){const rw=(o.run&&o.run.rw)||2,bs=o.bs||{t:'c',w:4,h:4},cen=a.find(q=>q.part==='center');const cy0=cen?(cen.y+cen.h/2)/G:y-rw/2,bot=cen?(cen.y+cen.h)/G:y,lft=cen?cen.x/G:lx-rw/2,rgt=cen?(cen.x+cen.w)/G:lx+rw/2;
 o.runs.forEach(r=>{if(r.k==='rCB'){a.push({...mk('r',lx-rw/2,bot,rw,r.rl,'runway'),np:'s',nz:'e',ns:1,nb:0,nm:0});a.push(mk(bs.t,lx-bs.w/2,bot+r.rl,bs.w,bs.h,'b'));y=Math.max(y,bot+r.rl+bs.h)}
 else{const Rt=r.k==='rCR';a.push({...mk('r',Rt?rgt:lft-r.rl,cy0-rw/2,r.rl,rw,'runway'),np:'f',nz:'e',ns:1,nb:0,nm:0});a.push(mk(bs.t,Rt?rgt+r.rl:lft-r.rl-bs.w,cy0-bs.h/2,bs.w,bs.h,'b'))}})}
-if(o.b){const b=o.b;let x=lx-b.w/2,yy=y;if(b.p!=='f'){yy=2;x=b.p==='l'?cx-mN-b.w:cx+mN}a.push(mk(b.t,x,yy,b.w,b.h,'b'))}
+if(o.b){const b=o.b;let x=lx-b.w/2,yy=y;if(b.p!=='f'){yy=5;x=b.p==='l'?cx-mN-b.w:cx+mN}a.push(mk(b.t,x,yy,b.w,b.h,'b'))}
 const my=Math.max(0,...a.map(s=>s.y+s.h));if(my>H-60)H=Math.ceil((my+120)/60)*60;return a.map(s=>({...s,x:Math.min(W-s.w,Math.max(0,s.x)),y:Math.max(0,s.y)}))}
 function nums(n,i0){const f=S.shapes[0],cx=f.x+f.w/2,y=f.y+f.h+20,m=[{id:i0,l:'0',x:cx,y,k:1}];let id=i0+1;
 for(let i=1;i<=n;i++)for(const g of[-1,1])m.push({id:id++,l:String(i),x:cx+g*i*G,y,k:1});return m}
@@ -3774,7 +3789,7 @@ if(ptr.size===2){drag=null;const[a,b]=[...ptr.values()],r=wrap.getBoundingClient
 {const sr=st.getBoundingClientRect();pin={d:Math.hypot(a.x-b.x,a.y-b.y)||1,z:Z,fx:(mx-r.left+wrap.scrollLeft)/Z,fy:(my-r.top+wrap.scrollTop)/Z,mx0:mx,my0:my,ox:mx-sr.left,oy:my-sr.top,nz:Z,mx:mx,my:my};st.style.transformOrigin=pin.ox+'px '+pin.oy+'px';st.classList.add('pinch')}return}
 if(ptr.size>2)return;
 const q=P(e),t=e.target,kd=mode==='f'?'data-id':mode==='m'?'data-m':mode==='s'?'data-s':null;let g=kd?t.closest(`[${kd}]`):null;
-if(mode==='s'&&g&&!act(sh(+g.dataset.s)))g=null;
+if(mode==='s'&&g&&!act(sh(+g.dataset.s)))g=null;if(mode==='s')g=stPick(g,q,t);
 if(mode==='f'&&!pathDraw&&!SYE&&!(multi&&kd)){let bd=1e9,bg=null;st.querySelectorAll('.dg[data-id]').forEach(el=>{if(el.classList.contains('dim'))return;const r=el.querySelector('.dcr')||el,b=r.getBoundingClientRect(),d=Math.hypot(b.x+b.width/2-e.clientX,b.y+b.height/2-e.clientY);if(d<bd){bd=d;bg=el}});if(bg&&bd<(e.pointerType==='mouse'?18:30))g=bg}
 if(mode==='f'&&pathDraw){drag={k:'pd',id:pathDraw,pts:[{x:q.x,y:q.y}],nolp:1}}
 else if(mode==='f'&&t.closest('[data-pw],[data-pi]')&&!isPlus()){drag={k:'none',nolp:1};payUI('path')}
@@ -3998,7 +4013,7 @@ const EXPCSS='.g-blank{display:none}.dcr[stroke="#ffffff"],.dcr[stroke="#fff"],.
 async function renderFrames(idxs,prog,part){const own=!XJ&&idxs.length>=2;if(own)xpStart('書類を作成しています');try{return await renderFrames0(idxs,(a,b)=>{xpSet(a/b*100,`${a} / ${b}ページ`);if(prog)prog(a,b)},part)}finally{if(own){const c=XJ&&XJ.cancel;xpEnd();if(c)xpCancelMsg()}}}
 async function renderFrames0(idxs,prog,part){const sv={mode,selS,selM,vw,multi,box,cur:S.cur,gh:S.gh},sl={f:new Set(SL.f),m:new Set(SL.m),s:new Set(SL.s)},out=[];
 mode='f';selS=selM=null;vw=part||'all';exporting=true;multi=false;box=null;S.gh=0;SL.f.clear();SL.m.clear();SL.s.clear();setVB();
-try{const CB=exCrop(idxs)||{x:VB.x,y:VB.y,w:VB.w,h:VB.h},ek=isPlus()?Math.max(2,Math.min(6,2600/CB.w)):Math.max(1,Math.min(1.6,800/CB.w));for(let k=0;k<idxs.length;k++){S.cur=idxs[k];draw();const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${CB.x} ${CB.y} ${CB.w} ${CB.h}" width="${Math.round(CB.w*ek)}" height="${Math.round(CB.h*ek)}"><style>${EXPCSS}</style><rect x="${CB.x}" y="${CB.y}" width="${CB.w}" height="${CB.h}" fill="#fff"/>${$('stage').innerHTML}</svg>`;
+try{const CB=exCrop(idxs)||{x:VB.x,y:VB.y,w:VB.w,h:VB.h},ek=isPlus()?Math.max(2,Math.min(8,Math.max(2600/CB.w,Math.min(555/CB.w,330/CB.h)*2.5*1.3))):Math.max(1,Math.min(1.6,800/CB.w));for(let k=0;k<idxs.length;k++){S.cur=idxs[k];draw();const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${CB.x} ${CB.y} ${CB.w} ${CB.h}" width="${Math.round(CB.w*ek)}" height="${Math.round(CB.h*ek)}"><style>${EXPCSS}</style><rect x="${CB.x}" y="${CB.y}" width="${CB.w}" height="${CB.h}" fill="#fff"/>${$('stage').innerHTML}</svg>`;
 const img=await loadImg('data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg));const fo={i:idxs[k],img,w:CB.w,h:CB.h};if(FVPDF&&flSets().length){const R=frvSvg(S.scenes[idxs[k]].p,1),ek2=Math.min(5,2800/R.VB.w);fo.fv={img:await loadImg('data:image/svg+xml;charset=utf-8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${R.VB.x} ${R.VB.y} ${R.VB.w} ${R.VB.h}" width="${Math.round(R.VB.w*ek2)}" height="${Math.round(R.VB.h*ek2)}">${R.h}</svg>`)),w:R.VB.w,h:R.VB.h}}out.push(fo);if(prog)prog(k+1,idxs.length);if(XJ&&XJ.cancel)throw Object.assign(new Error('cancel'),{code:'cancel'});if(k%3===2)await new Promise(r=>setTimeout(r))}}
 finally{exporting=false;mode=sv.mode;selS=sv.selS;selM=sv.selM;vw=sv.vw;multi=sv.multi;box=sv.box;S.cur=sv.cur;S.gh=sv.gh;SL.f=sl.f;SL.m=sl.m;SL.s=sl.s;setVB();zoom();draw()}
 return out}
@@ -4040,7 +4055,7 @@ function idxsFor(sec,only){const a=sec>=0?segStart(sec):0,z=sec>=0?a+S.segs[sec]
 async function pdfBuild(idxs,part,title,solo=null){const sv=SOLO;SOLO=solo;try{return await pdfBuild0(idxs,part,title)}finally{SOLO=sv}}
 async function pdfBuild0(idxs,part,title){return new Blob([buildPDF(await pdfPages0(idxs,part,title))],{type:'application/pdf'})}
 async function pdfPages0(idxs,part,title){const fr=await renderFrames(idxs,(k,n)=>toast(`作成中 ${k}/${n}`,0,'run'),part),per=6,pgs=[],np=Math.ceil(fr.length/per);
-const PQ=isPlus()?2:1;for(let p=0;p<fr.length;p+=per){const cv=document.createElement('canvas');cv.width=1240*PQ;cv.height=1754*PQ;const ctx=cv.getContext('2d');ctx.scale(PQ,PQ);ctx.imageSmoothingQuality='high';ctx.fillStyle='#fff';ctx.fillRect(0,0,1240,1754);ctx.textBaseline='top';ctx.fillStyle='#16181f';ctx.font=`bold 28px ${FF}`;ctx.fillText(`${title}   BPM ${bpmTxt()}   ${fmtT(total())}`,50,36);ctx.font=`22px ${FF}`;ctx.fillStyle='#6a6f7d';ctx.fillText(`${p/per+1} / ${np}`,1100,42);
+const PQ=isPlus()?2.5:1;for(let p=0;p<fr.length;p+=per){const cv=document.createElement('canvas');cv.width=1240*PQ;cv.height=1754*PQ;const ctx=cv.getContext('2d');ctx.scale(PQ,PQ);ctx.imageSmoothingQuality='high';ctx.fillStyle='#fff';ctx.fillRect(0,0,1240,1754);ctx.textBaseline='top';ctx.fillStyle='#16181f';ctx.font=`bold 28px ${FF}`;ctx.fillText(`${title}   BPM ${bpmTxt()}   ${fmtT(total())}`,50,36);ctx.font=`22px ${FF}`;ctx.fillStyle='#6a6f7d';ctx.fillText(`${p/per+1} / ${np}`,1100,42);
 fr.slice(p,p+per).forEach((f,j)=>cellDraw(ctx,f,50+(j%2)*585,100+Math.floor(j/2)*548,555,518,22));wmDraw(ctx,1240,1754,1.4);
 pgs.push(await pgEnc(cv));await new Promise(r=>setTimeout(r))}
 return pgs}
@@ -4218,7 +4233,7 @@ const cards=[['pdf',IC.doc,'構成表PDF','全体の立ち位置'],['per',IC.pe,
 if(!XP.ds)XP.ds=S.disp||'c';let o='';const rng=row('範囲',`<span class="xpsel">${exSelHtml()}</span>`);
 if(XP.k==='pdf')o=row('コマ',seg('fr',[['k','POSITION'],['c','動きあり'],['a','全カウント']]))+row('表記',seg('ds',[['c','カウント'],['m','小節'],['b','両方']]))+rng+row('ファイル',seg('sp',[['one','1つ'],['sec','SECTIONごと'],['part','ステージごと']]))+row('出ハケ表',seg('dh',[[0,'なし'],[1,'つける']]))+(flSets().length?row('正面図',seg('fv',[[0,'なし'],[1,'つける']])):'')+(isPlus()&&S.lt&&S.lt.length?row('照明',seg('lt',[[0,'なし'],[1,'重ねる']])):'');
 else if(XP.k==='per')o=row('だれの',seg('who',[['all','全員'],['pick','選ぶ']]))+(XP.who==='pick'?`<div class="xppk">${S.dancers.map(d=>`<button data-xpd="${d.id}" class="${XPS.has(d.id)?'on':''}"><i style="background:${esc(d.color)}"></i>${esc(d.name)}</button>`).join('')}</div>`:'')+row('表記',seg('ds',[['c','カウント'],['m','小節'],['b','両方']]))+row('ファイル',seg('pf',[['one','1つにまとめる'],['each','1人ずつ']]))+(flSets().length?row('正面図',seg('fv',[[0,'なし'],[1,'つける']])):'')+(isPlus()&&S.lt&&S.lt.length?row('照明',seg('lt',[[0,'なし'],[1,'重ねる']])):'');
-else if(XP.k==='vid')o=row('表記',seg('ds',[['c','カウント'],['m','小節'],['b','両方']]))+rng+(REC?'<p class="hint">録画中です。もう一度押すと止まります。</p>':'');
+else if(XP.k==='vid')o=row('表記',seg('ds',[['c','カウント'],['m','小節'],['b','両方']]))+(XP.vv=XP.vv||'top',row('向き',seg('vv',[['top','上から'],['front','正面から']])))+rng+(REC?'<p class="hint">録画中です。もう一度押すと止まります。</p>':'');
 else if(XP.k==='dat')o='<p class="hint">この構成表をまるごとファイル(.json)で保存します。LINEやAirDropで送り、受け取った人がホームの「読み込み」から開くと、そのまま見たり編集したりできます。</p>';
 else o='<p class="hint">今表示しているカウントの図面を画像で保存します。</p>';
 const go=XP.k==='vid'&&REC?'■ 録画を止める':'書き出す';
@@ -4348,14 +4363,14 @@ let REC=null,RECD=null,recT=0;
 function vidFrame(ctx,cw,ch,capH,V,x,kun){const pos=posAt(x),c=Math.min(S.scenes.length-1,Math.floor(x)),k=cw/V.w,fl=S.flip,R0=(S.isz||16)*k;
 const tx=(px,py)=>{const X=fl?W-px:px,Y=fl?H-py:py;return[(X-V.x)*k,capH+(Y-V.y)*k]};
 ctx.fillStyle='#0b0c10';ctx.fillRect(0,0,cw,ch);
-if(S.grid){ctx.strokeStyle='rgba(255,255,255,.07)';ctx.lineWidth=1;ctx.beginPath();for(let gx=Math.floor(V.x/G)*G;gx<=V.x+V.w;gx+=G){const X=(gx-V.x)*k;ctx.moveTo(X,capH);ctx.lineTo(X,ch)}for(let gy=Math.floor(V.y/G)*G;gy<=V.y+V.h;gy+=G){const Y=capH+(gy-V.y)*k;ctx.moveTo(0,Y);ctx.lineTo(cw,Y)}ctx.stroke()}
+if(VBGI){ctx.drawImage(VBGI,0,capH,cw,ch-capH)}else{if(S.grid){ctx.strokeStyle='rgba(255,255,255,.07)';ctx.lineWidth=1;ctx.beginPath();for(let gx=Math.floor(V.x/G)*G;gx<=V.x+V.w;gx+=G){const X=(gx-V.x)*k;ctx.moveTo(X,capH);ctx.lineTo(X,ch)}for(let gy=Math.floor(V.y/G)*G;gy<=V.y+V.h;gy+=G){const Y=capH+(gy-V.y)*k;ctx.moveTo(0,Y);ctx.lineTo(cw,Y)}ctx.stroke()}
 vfBg(ctx,tx);S.shapes.forEach(q=>{if(q.t==='i'||S.bgOnly)return;if(q.t==='a'||q.t==='p'){const P2=new Path2D(shpD(q,p=>{const[a,b]=tx(p.x,p.y);return{x:a,y:b}},1));ctx.fillStyle='#151820';ctx.fill(P2,'evenodd');ctx.strokeStyle='#5d6372';ctx.lineWidth=2;ctx.stroke(P2);return}const[a1,b1]=tx(q.x,q.y),[a2,b2]=tx(q.x+q.w,q.y+q.h),x1=Math.min(a1,a2),y1=Math.min(b1,b2),w=Math.abs(a2-a1),h=Math.abs(b2-b1);ctx.beginPath();if(q.t==='c')ctx.ellipse(x1+w/2,y1+h/2,w/2,h/2,0,0,Math.PI*2);else ctx.rect(x1,y1,w,h);ctx.fillStyle=q.gk?'rgba(255,255,255,.04)':'#151820';ctx.fill();ctx.setLineDash(q.gk?[8,6]:[]);ctx.strokeStyle='#5d6372';ctx.lineWidth=2;ctx.stroke();ctx.setLineDash([])});
-{const fs=Math.max(12,Math.round(G*k*.42));ctx.fillStyle='rgba(255,255,255,.55)';ctx.font=`700 ${fs}px ${FF}`;ctx.textAlign='center';ctx.textBaseline='middle';if(!S.bgOnly)try{v3NumPts().forEach(n=>{const[X,Y]=tx(n.x,n.y);ctx.fillText(n.t,X,Y)})}catch(e){}const m=mainS();if(m){const[X,Y]=tx(m.x+m.w/2,m.y+m.h+G*.9);ctx.fillStyle='rgba(255,255,255,.7)';ctx.font=`800 ${Math.round(fs*1.15)}px ${FF}`;ctx.fillText(fl?'▲ 客席':'▼ 客席',X,Y)}}const VMEMO=memoAt(x),VGH=VMEMO!=null&&memoGhostAt(x);const VMD=()=>{const MB=memoBox(),[X0,Y0]=tx(MB.x+MB.w/2,MB.y+MB.h/2),L=String(VMEMO||'（メモ）').split('\n').slice(0,6),fs=Math.max(14,Math.min(MB.h*k/(L.length*1.7+1),MB.w*k*.82/Math.max(3,...L.map(l=>[...l].length)),64*k/1.2));ctx.save();if(VGH)ctx.globalAlpha=memoAAt(x);ctx.fillStyle='rgba(255,211,61,.16)';if(!VGH||VMDT){const[ax,ay]=tx(MB.x,MB.y),[bx,by]=tx(MB.x+MB.w,MB.y+MB.h);ctx.fillRect(Math.min(ax,bx),Math.min(ay,by),Math.abs(bx-ax),Math.abs(by-ay))}if(VMDT){ctx.restore();return}ctx.fillStyle='#fff';ctx.font=`800 ${Math.round(fs)}px ${FF}`;ctx.textAlign='center';ctx.textBaseline='middle';if(VGH){ctx.lineWidth=Math.max(2,fs*.16);ctx.strokeStyle='rgba(0,0,0,.72)';ctx.lineJoin='round';L.forEach((l,i)=>ctx.strokeText(l,X0,Y0+(i-(L.length-1)/2)*fs*1.35))}L.forEach((l,i)=>ctx.fillText(l,X0,Y0+(i-(L.length-1)/2)*fs*1.35));ctx.restore()};if(VMEMO!=null&&!VGH)VMD();let LTD2=null;if(VMEMO==null&&ltShow()){const LM=mainS();if(LM){ctx.save();ctx.transform(fl?-k:k,0,0,fl?-k:k,fl?(W-V.x)*k:-V.x*k,capH+(fl?(H-V.y)*k:-V.y*k));try{ltCanvas(ctx,x,pos,LM)}catch(e){}ctx.restore();LTD2=ltDim(x,pos,LM)}}if(VGH){VMDT=1;VMD();VMDT=0}if(VMEMO==null||VGH){const AB=abMap(),LB=S.lbl||'name';S.dancers.forEach(d=>{const p=pos[d.id];if(!p||HID.has(d.id))return;const R1=R0*dsz(d);const[X,Y]=tx(p.x,p.y),ab=AB[d.id]||[...d.name][0]||'';ctx.globalAlpha=(VGH?memoOpAt(x):1)*(p.off?.45:1)*(LTD2&&LTD2(p)<.3?.35:1);if(d.star){ctx.beginPath();ctx.arc(X,Y,R1*1.3,0,Math.PI*2);ctx.lineWidth=R1*.16;ctx.strokeStyle='#ffd33d';ctx.stroke()}ctx.beginPath();ctx.arc(X,Y,R1,0,Math.PI*2);ctx.fillStyle=d.color;ctx.fill();ctx.lineWidth=Math.max(2.5,R1*.12);ctx.strokeStyle=ringDk(d);ctx.stroke();ctx.fillStyle=lumi(d.color)>.6?'#111':'#fff';ctx.font=`800 ${Math.round(R1*([...ab].length>1?.78:.95))}px ${FF}`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(ab,X,Y+1,R1*1.6);if(LB!=='none'){ctx.fillStyle=nmCol(d)||'#e8eaf0';ctx.font=`600 ${Math.round(R0*.72)}px ${FF}`;ctx.fillText(LB==='num'?hNum(p):d.name,X,Y+R1+R0*.75)}ctx.globalAlpha=1});if(VGH)VMD()}
+{const fs=Math.max(12,Math.round(G*k*.42));ctx.fillStyle='rgba(255,255,255,.55)';ctx.font=`700 ${fs}px ${FF}`;ctx.textAlign='center';ctx.textBaseline='middle';if(!S.bgOnly)try{v3NumPts().forEach(n=>{const[X,Y]=tx(n.x,n.y);ctx.fillText(n.t,X,Y)})}catch(e){}const m=mainS();if(m){const[X,Y]=tx(m.x+m.w/2,m.y+m.h+G*.9);ctx.fillStyle='rgba(255,255,255,.7)';ctx.font=`800 ${Math.round(fs*1.15)}px ${FF}`;ctx.fillText(fl?'▲ 客席':'▼ 客席',X,Y)}}}const VMEMO=memoAt(x),VGH=VMEMO!=null&&memoGhostAt(x);const VMD=()=>{const MB=memoBox(),[X0,Y0]=tx(MB.x+MB.w/2,MB.y+MB.h/2),L=String(VMEMO||'（メモ）').split('\n').slice(0,6),fs=Math.max(14,Math.min(MB.h*k/(L.length*1.7+1),MB.w*k*.82/Math.max(3,...L.map(l=>[...l].length)),64*k/1.2));ctx.save();if(VGH)ctx.globalAlpha=memoAAt(x);ctx.fillStyle='rgba(255,211,61,.16)';if(!VGH||VMDT){const[ax,ay]=tx(MB.x,MB.y),[bx,by]=tx(MB.x+MB.w,MB.y+MB.h);ctx.fillRect(Math.min(ax,bx),Math.min(ay,by),Math.abs(bx-ax),Math.abs(by-ay))}if(VMDT){ctx.restore();return}ctx.fillStyle='#fff';ctx.font=`800 ${Math.round(fs)}px ${FF}`;ctx.textAlign='center';ctx.textBaseline='middle';if(VGH){ctx.lineWidth=Math.max(2,fs*.16);ctx.strokeStyle='rgba(0,0,0,.72)';ctx.lineJoin='round';L.forEach((l,i)=>ctx.strokeText(l,X0,Y0+(i-(L.length-1)/2)*fs*1.35))}L.forEach((l,i)=>ctx.fillText(l,X0,Y0+(i-(L.length-1)/2)*fs*1.35));ctx.restore()};if(VMEMO!=null&&!VGH)VMD();let LTD2=null;if(VMEMO==null&&ltShow()){const LM=mainS();if(LM){ctx.save();ctx.transform(fl?-k:k,0,0,fl?-k:k,fl?(W-V.x)*k:-V.x*k,capH+(fl?(H-V.y)*k:-V.y*k));try{ltCanvas(ctx,x,pos,LM)}catch(e){}ctx.restore();LTD2=ltDim(x,pos,LM)}}if(VGH){VMDT=1;VMD();VMDT=0}if(VMEMO==null||VGH){const AB=abMap(),LB=S.lbl||'name';S.dancers.forEach(d=>{const p=pos[d.id];if(!p||HID.has(d.id))return;const R1=R0*dsz(d);const[X,Y]=tx(p.x,p.y),ab=AB[d.id]||[...d.name][0]||'';ctx.globalAlpha=(VGH?memoOpAt(x):1)*(p.off?.45:1)*(LTD2&&LTD2(p)<.3?.35:1);if(d.star){ctx.beginPath();ctx.arc(X,Y,R1*1.3,0,Math.PI*2);ctx.lineWidth=R1*.16;ctx.strokeStyle='#ffd33d';ctx.stroke()}ctx.beginPath();ctx.arc(X,Y,R1,0,Math.PI*2);ctx.fillStyle=d.color;ctx.fill();ctx.lineWidth=Math.max(2.5,R1*.12);ctx.strokeStyle=ringDk(d);ctx.stroke();ctx.fillStyle=lumi(d.color)>.6?'#111':'#fff';ctx.font=`800 ${Math.round(R1*([...ab].length>1?.78:.95))}px ${FF}`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(ab,X,Y+1,R1*1.6);if(LB!=='none'){ctx.fillStyle=nmCol(d)||'#e8eaf0';ctx.font=`600 ${Math.round(R0*.72)}px ${FF}`;ctx.fillText(LB==='num'?hNum(p):d.name,X,Y+R1+R0*.75)}ctx.globalAlpha=1});if(VGH)VMD()}
 const cp=capOf(c);ctx.fillStyle='#0b0c10';ctx.fillRect(0,0,cw,capH);ctx.textAlign='left';ctx.textBaseline='top';ctx.fillStyle='#fff';{const sc=capH/110;ctx.font=`700 ${Math.round(36*sc)}px ${FF}`;ctx.fillText(`${cp.a}  ${cp.b}${cp.f?'  「'+cp.f+'」':''}`,28*sc,20*sc);ctx.font=`${Math.round(26*sc)}px ${FF}`;ctx.fillStyle='#a3a8b6';ctx.fillText(`${cp.t}${ltShow()?ltName(c).replace(/^\s+/,'   '):''}${cp.ly?'   ♪ '+cp.ly:''}${cp.q?'   ▶ '+cp.q:''}`,28*sc,66*sc)}
 if(kun.complete&&kun.naturalWidth){const kh=70,kw=kun.naturalWidth*kh/kun.naturalHeight;ctx.globalAlpha=.85;ctx.drawImage(kun,cw-kw-150,ch-kh-14,kw,kh);ctx.fillStyle='#fff';ctx.font=`700 22px ${FF}`;ctx.textBaseline='middle';ctx.fillText('FORM8ER',cw-140,ch-14-kh/2);ctx.globalAlpha=1}}
 async function exportVideo(){if(XJ){toast('ほかの保存が進行中です');return}const dl=await getDL();if(!dl)return;if(!window.MediaRecorder||!HTMLCanvasElement.prototype.captureStream){toast('この端末では動画を作れません',0,'trouble');return}
 const sec=exSec,a=sec>=0?segStart(sec):0,z=sec>=0?Math.min(S.scenes.length-1,a+S.segs[sec].n):S.scenes.length-1;
-const sv={vw,mode};vw=exPart;mode='f';setVB();const V=exCrop(Array.from({length:z-a+1},(_,i)=>a+i))||{...VB};vw=sv.vw;mode=sv.mode;setVB();
+const sv={vw,mode};vw=exPart;mode='f';setVB();const V0=exCrop(Array.from({length:z-a+1},(_,i)=>a+i))||{...VB};vw=sv.vw;mode=sv.mode;setVB();const V=await vidPrep(V0);
 const X=xpStart('動画を保存しています',{video:1});let RA=null,rec=null,blob=null,mt='';
 try{xpSet(0,'準備中…');const cw=isPlus()?1920:720,capH=Math.round(isPlus()?160:74),ch=Math.round(cw*V.h/V.w/2)*2+capH,cv=document.createElement('canvas');cv.width=cw;cv.height=ch;const ctx=cv.getContext('2d'),stream=cv.captureStream(30);let au=hasAu();
 if(au){RA=await recAud();if(X.cancel)return;if(RA)RA.dst.stream.getAudioTracks().forEach(t=>stream.addTrack(t));else au=false}
@@ -4366,7 +4381,7 @@ const t0=performance.now();if(au)RA.play(Math.max(0,a===0&&apStart()!=null?apSta
 await xpLoop(X,res=>{if(rec.state!=='recording')return res();const x=au?tC(RA.now()-(S.aoff||0)):tC(cT(a)+(performance.now()-t0)/1000);if(x>=z||(au&&RA.end()))return res();vidFrame(ctx,cw,ch,capH,V,Math.max(a,x),kun);wmDrawV(ctx,cw,ch);xpSet((x-a)/Math.max(1,z-a)*100);return x});
 try{if(rec.state==='recording')rec.stop()}catch(e){}await xpWait(fin,4000);if(X.cancel)return;blob=new Blob(chunks,{type:(mt||'video/webm').split(';')[0]})}
 catch(e){if(!X.cancel)toast('動画を作れませんでした',0,'trouble')}
-finally{try{RA&&RA.stop()}catch(e){}REC=null;const c=X.cancel;xpEnd();try{if(!$('pexp').hidden)expUI()}catch(e){}if(c)xpCancelMsg()}
+finally{try{RA&&RA.stop()}catch(e){}vidDone();REC=null;const c=X.cancel;xpEnd();try{if(!$('pexp').hidden)expUI()}catch(e){}if(c)xpCancelMsg()}
 if(!blob)return;if(!blob.size){toast('動画を作れませんでした',0,'trouble');return}await saveFile(dl,`${S.name||'formation'}${sec>=0?'_'+secName(sec):''}.${mt.includes('mp4')?'mp4':'webm'}`,blob)}
 // ===== setlists
 const SETS={get(){try{return JSON.parse(localStorage.getItem('fmsets')||'[]')}catch(e){return[]}},set(v){try{localStorage.setItem('fmsets',JSON.stringify(v))}catch(e){}}};
@@ -5052,7 +5067,7 @@ function stVis(){if(mode!=='s'||!S||$('app').hidden)return;const els=[...st.quer
 
 function addCross(){const m=mainS()||S.shapes.find(q=>!q.gk);if(!m){toast('メインステージがありません');return}const n=Math.max(0,...S.shapes.map(q=>q.id))+1,L=10*G,cx=S.cx,y0=m.y+m.h;S.shapes.push({id:n,t:'p',x:cx-L/2,y:y0,w:L,h:L,part:'runway',nz:'n',cr:{b:2,cy:.5},lb:'十字の花道'});selS=n;growWorld();partsUI();tools();vbUpd();draw();save();setTimeout(stVis,30);toast('十字の花道を追加しました（角の点で大きさ、回転も十字のまま）',0,'joy')}
 
-const APPVN=201,APPMV='1.0.0',APPVS=`ver.${APPMV}（2026/10/30）`,APPV=`ver.${APPMV} (build ${APPVN})`,SUPPORT_MAIL='form8er@gmail.com';
+const APPVN=206,APPMV='1.0.0',APPVS=`ver.${APPMV}（2026/10/30）`,APPV=`ver.${APPMV} (build ${APPVN})`,SUPPORT_MAIL='form8er@gmail.com';
 const isNative=()=>{try{return!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform())}catch(e){return false}};
 const isStandalone=()=>{try{return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}catch(e){return false}};
 (()=>{try{const C=window.Capacitor,H=C&&C.Plugins&&C.Plugins.Haptics;if(H&&isNative()){Object.defineProperty(navigator,'vibrate',{configurable:true,value:ms=>{try{const v=Array.isArray(ms)?ms[0]:ms;H.impact({style:v>=15?'MEDIUM':'LIGHT'})}catch(e){}return true}})}}catch(e){}})();
@@ -6964,7 +6979,7 @@ setTimeout(()=>{try{homeVer()}catch(e){}},0);
 
 const PFG_HTML="<div class=\"pfg\"><div class=\"pft\"><i><svg viewBox=\"0 0 24 24\"><path d=\"M7.5 9a3 3 0 100 6c2.5 0 6.5-6 9-6a3 3 0 110 6c-2.5 0-6.5-6-9-6z\"/></svg></i><b>無制限に保存</b><small>構成表・メンバー（60名まで）・セットリスト・ステージ・下絵</small></div><div class=\"pft\"><i><svg viewBox=\"0 0 24 24\"><rect x=\"3.5\" y=\"5.5\" width=\"17\" height=\"13\" rx=\"2\"/><path d=\"M7 15.5v-7M7 12h3.5M10.5 8.5v7M14 8.5h2.2a2.3 2.3 0 012.3 2.3v2.4a2.3 2.3 0 01-2.3 2.3H14z\"/></svg></i><b>高画質で書き出し</b><small>透かしなしのPDF・画像・動画（1080p）</small></div><div class=\"pft\"><i><svg viewBox=\"0 0 24 24\"><path d=\"M12 3l8 4.5v9L12 21l-8-4.5v-9z\"/><path d=\"M4 7.5l8 4.5 8-4.5M12 12v9\"/></svg></i><b>3Dビュー</b><small>客席や袖、任意の座席からの見え方を確認。3D動画も書き出せます</small></div><div class=\"pft\"><i><svg viewBox=\"0 0 24 24\"><rect x=\"4\" y=\"13\" width=\"16\" height=\"7\" rx=\"1\"/><rect x=\"7\" y=\"4\" width=\"10\" height=\"9\" rx=\"1\"/><path d=\"M9 13V9h6v4\"/></svg></i><b>多層セット・GL階段</b><small>2階・3階建てのセットや、ステージ下から上がる階段を作れます</small></div><div class=\"pft\"><i><svg viewBox=\"0 0 24 24\"><rect x=\"3\" y=\"5\" width=\"13\" height=\"14\" rx=\"2\"/><path d=\"M16 10l5-3v10l-5-3\"/></svg></i><b>動画と同期</b><small>練習動画と立ち位置を並べて再生し、同期した動画を書き出し</small></div><div class=\"pft\"><i><svg viewBox=\"0 0 24 24\"><path d=\"M19.5 12a7.5 7.5 0 11-2.2-5.3\"/><path d=\"M19.8 3.8v3.6h-3.6\"/></svg></i><b>回転の動き</b><small>回転量を指定して、円で回りながらの移動を再現</small></div><div class=\"pft\"><i><svg viewBox=\"0 0 24 24\"><path d=\"M4 19c3.5 0 3-7 7-7s3 5 9 5\"/><circle cx=\"4\" cy=\"19\" r=\"1.6\"/><circle cx=\"20\" cy=\"17\" r=\"1.6\"/></svg></i><b>動線の編集</b><small>経路を描いて曲げ、ぶつかりを自動で回避</small></div><div class=\"pft\"><i><svg viewBox=\"0 0 24 24\"><path d=\"M12 3v18\" stroke-dasharray=\"2 2.5\"/><path d=\"M9 7l-5 5 5 5M15 7l5 5-5 5\"/></svg></i><b>シンメトリー・出入口</b><small>左右対称の配置と出入口の設定</small></div><div class=\"pft\"><i><svg viewBox=\"0 0 24 24\"><path d=\"M12 3v3M5.6 5.6l2.1 2.1M18.4 5.6l-2.1 2.1\"/><path d=\"M8 14a4 4 0 118 0v3H8z\"/><path d=\"M9.5 20h5\"/></svg></i><b>キュー</b><small>照明・音響・転換のきっかけを記録</small></div><div class=\"pft\"><i><svg viewBox=\"0 0 24 24\"><path d=\"M7 3.5h7l4 4v13H7z\"/><path d=\"M14 3.5v4h4\"/><circle cx=\"12.5\" cy=\"12\" r=\"1.8\"/><path d=\"M9.5 17.5c.4-1.7 1.6-2.6 3-2.6s2.6.9 3 2.6\"/></svg></i><b>個人別PDF</b><small>出演者全員分の立ち位置表をまとめて書き出し</small></div></div>";
 // ===== V186: App内課金（StoreKit 2）
-const IAP_IDS={y:'jp.form8.app.plus.yearly',m:'jp.form8.app.plus.monthly'};
+const IAP_IDS={y:'jp.form8er.app.plus.yearly',m:'jp.form8er.app.plus.monthly'};
 const LEGAL={eula:'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/',privacy:'',appstore:''};
 let IAPE=(()=>{try{return JSON.parse(localStorage.getItem('fmiap')||'null')}catch(e){return null}})(),IAPP={},IAPBUSY=false,IAPX;
 function iapPlug(){if(IAPX!==undefined)return IAPX;IAPX=null;try{const C=window.Capacitor;if(C&&isNative()&&!(C.isPluginAvailable&&!C.isPluginAvailable('FormIAP')))IAPX=C.registerPlugin?C.registerPlugin('FormIAP'):(C.Plugins&&C.Plugins.FormIAP)||null}catch(e){IAPX=null}return IAPX}
@@ -6986,7 +7001,7 @@ function iapLen(p){if(!p||!p.introUnit)return '';const v=(p.introValue||1)*(p.in
 // ---- paywall
 function payUI(r){PAYR_LAST=r;let el=$('pay');if(!el){el=document.createElement('div');el.id='pay';document.body.appendChild(el);el.onclick=e=>{if(e.target.closest('a[href]'))return;const b=e.target.closest('[data-pay]');if(e.target===el||(b&&b.dataset.pay==='x')){el.hidden=true;return}if(!b||b.disabled)return;payAct(b.dataset.pay)}}
 const st=planState(),nat=isNative(),web=!nat&&!!window.FMWEB;if(PAYSEL!=='m')PAYSEL='y';
-const py=IAPP.y,pm=IAPP.m,ypr=py&&py.displayPrice||yen(PLAN.price.y),mpr=pm&&pm.displayPrice||yen(PLAN.price.m),ymo=yen(Math.round((py&&py.price||PLAN.price.y)/12));
+const py=IAPP.y,pm=IAPP.m,ypr=py&&py.displayPrice||yen(PLAN.price.y),mpr=pm&&pm.displayPrice||yen(PLAN.price.m),ymo=py&&py.displayPrice&&isFinite(+py.price)?prPerMonth(py):yen(Math.round(PLAN.price.y/12));
 const cur=PAYSEL==='m'?{p:mpr,u:'月'}:{p:ypr,u:'年'},sp=IAPP[PAYSEL],tri=nat?(sp&&sp.eligible&&sp.introMode==='free'?iapLen(sp):''):(web?'':`${PLAN.trial}日間`);
 const busy=IAPBUSY?' disabled':'';let shop='';
 if(st.plus){shop=`<p class="payt">FORM8ER＋ をご利用中です${st.kind==='trial'?`（無料トライアル中・あと${st.left}日）`:''}</p>${nat?`<button class="payg2" data-pay="manage">サブスクの管理・解約</button>`:''}`}
@@ -7040,7 +7055,7 @@ setTimeout(()=>{const P=iapPlug();if(P&&P.env)P.env().then(d=>{IAPDEV=!!(d&&d.de
 // ---- paywall: fixed close button and fixed buy area; rendered only when something changes
 function payUI(r){PAYR_LAST=r;let el=$('pay');if(!el){el=document.createElement('div');el.id='pay';el.hidden=true;document.body.appendChild(el);el.onclick=e=>{if(e.target.closest('a[href]'))return;const b=e.target.closest('[data-pay]');if(e.target===el||(b&&b.dataset.pay==='x')){el.hidden=true;return}if(!b||b.disabled)return;payAct(b.dataset.pay)}}
 const opening=el.hidden,st=planState(),nat=isNative(),web=!nat&&!!window.FMWEB;if(nat&&opening&&(!IAPP.y||!IAPP.m))iapProducts();if(PAYSEL!=='m')PAYSEL='y';
-const py=IAPP.y,pm=IAPP.m,miss=nat&&(!py||!pm),ypr=py&&py.displayPrice||yen(PLAN.price.y),mpr=pm&&pm.displayPrice||yen(PLAN.price.m),ymo=yen(Math.round((py&&py.price||PLAN.price.y)/12));
+const py=IAPP.y,pm=IAPP.m,miss=nat&&(!py||!pm),ypr=py&&py.displayPrice||yen(PLAN.price.y),mpr=pm&&pm.displayPrice||yen(PLAN.price.m),ymo=py&&py.displayPrice&&isFinite(+py.price)?prPerMonth(py):yen(Math.round(PLAN.price.y/12));
 const cur=PAYSEL==='m'?{p:mpr,u:'月'}:{p:ypr,u:'年'},sp=IAPP[PAYSEL],tri=nat?(sp&&sp.eligible&&sp.introMode==='free'?iapLen(sp):''):(web?'':`${PLAN.trial}日間`);
 const busy=IAPBUSY?' disabled':'';let shop='';
 if(st.plus){shop=`<p class="payt">FORM8ER＋ をご利用中です${st.kind==='trial'?`（無料トライアル中・あと${st.left}日）`:''}${st.dev?'（開発用）':''}</p>${nat&&!st.dev?`<button class="payg2" data-pay="manage">サブスクの管理・解約</button>`:''}`}
@@ -7223,6 +7238,148 @@ document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest
 function tlFix(){if(!document.documentElement.classList.contains('ipad'))return;const q=$('qkx');if(q){q.style.marginLeft='';const r=q.getBoundingClientRect();if(r.width&&r.top<60&&r.left<76)q.style.marginLeft=Math.ceil(76-r.left)+'px'}const h=$('homeb'),m=$('mdsw');if(!h)return;h.style.marginLeft='';const mr=m&&m.getBoundingClientRect(),sv=h.querySelector('svg');if(!mr||!mr.width||!sv){const r=h.getBoundingClientRect();if(r.width&&r.top<60&&r.left<76)h.style.marginLeft=Math.ceil(76-r.left)+'px';return}const sr=sv.getBoundingClientRect();if(!sr.width)return;const hr=h.getBoundingClientRect();let d=Math.round((mr.left+2)-(sr.left+sr.width*3.5/24));if(hr.left+d<8)d=Math.ceil(8-hr.left);if(Math.abs(mr.top-hr.bottom)>40)d=0;if(d)h.style.marginLeft=d+'px'}
 setTimeout(tlFix,0);setTimeout(tlFix,600);
 {const _n=navUI;navUI=function(){const r=_n.apply(this,arguments);try{tlFix()}catch(e){}setTimeout(tlFix,60);return r}}
+
+// ---- V203: "per month" price in the store's own currency and format
+function prPerMonth(p){try{const d=String(p.displayPrice||''),v=(+p.price)/12;const m=d.match(/\d[\d.,  ' ]*\d|\d/);if(!m||!isFinite(v))return d;const num=m[0];const seps=num.replace(/\d/g,'');const last=seps.slice(-1);const tail=last?num.slice(num.lastIndexOf(last)+1):'';const dec=last&&tail.length!==3?tail.length:0,decSep=dec?last:'',grp=(dec?seps.slice(0,-1):seps).slice(0,1)||(decSep===','?'.':',');const r=dec?(Math.round(v*Math.pow(10,dec))/Math.pow(10,dec)).toFixed(dec):String(Math.round(v));let [ip,fp]=r.split('.');ip=ip.replace(/\B(?=(\d{3})+(?!\d))/g,grp);return d.replace(num,ip+(dec?decSep+fp:''))}catch(e){return String(p&&p.displayPrice||'')}}
+
+// ===== V204
+// ---- panels keep their scroll position when they are rebuilt (stage +/− buttons etc.)
+var STTAB=0;document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('.sttabs button,#mode button,#navo')){STTAB=1;setTimeout(()=>STTAB=0,400)}},true);
+// remember where the user scrolled; when the content is rebuilt, go back there
+function scGuard(el){if(!el||el._scg)return;el._scg=1;let last=el.scrollTop,mt=0;el.addEventListener('scroll',()=>{if(Date.now()-mt<350)return;last=el.scrollTop},{passive:true});
+const fix=()=>{if(STTAB){last=el.scrollTop;return}if(Math.abs(el.scrollTop-last)>1){const mx=el.scrollHeight-el.clientHeight;const v=Math.min(last,Math.max(0,mx));if(Math.abs(el.scrollTop-v)>1)el.scrollTop=v}};
+try{new MutationObserver(()=>{if(STTAB)return;mt=Date.now();fix();requestAnimationFrame(fix);[60,160,320].forEach(t=>setTimeout(fix,t))}).observe(el,{childList:true,subtree:true})}catch(e){}}
+setInterval(()=>{['stp','sbar','side','ctx'].forEach(id=>scGuard($(id)))},1000);setTimeout(()=>['stp','sbar','side','ctx'].forEach(id=>scGuard($(id))),0);
+// ---- stage: a tap picks the smallest part under the finger; tapping the same spot again picks the next one below
+var STPK={q:null,t:0};
+function stCands(q){return S.shapes.filter(z=>act(z)&&!z.hid&&!z.dec&&inShp(z,q)).sort((a,b)=>(a.w*a.h*(a.t==='c'?.785:1))-(b.w*b.h*(b.t==='c'?.785:1)))}
+function stPick(g,q,t){try{if(!S||mode!=='s'||GRPM||SYMS)return g;if(t&&t.closest&&t.closest('[data-h],[data-rt],[data-ah],[data-pv],[data-glh],[data-exm],[data-exa],[data-exd]'))return g;const C=stCands(q);if(!C.length)return g;const cur=C.find(z=>z.id===selS),pick=cur||C[0];const el=st.querySelector(`[data-s="${pick.id}"]`);return el||g}catch(e){return g}}
+// a plain tap on the same spot as the last plain tap moves the selection to the next part underneath
+addEventListener('pointerdown',e=>{if(mode!=='s'||!st.contains(e.target))return;STPK.d={x:e.clientX,y:e.clientY,sel:selS,mv:0}},true);
+addEventListener('pointermove',e=>{const d=STPK.d;if(d&&Math.hypot(e.clientX-d.x,e.clientY-d.y)>8)d.mv=1},true);
+addEventListener('pointerup',e=>{const d=STPK.d;STPK.d=null;if(!d||mode!=='s'||d.mv||GRPM)return;let q;try{q=P(e)}catch(x){return}const L=STPK,now=Date.now(),same=L.q&&Math.hypot(L.q.x-q.x,L.q.y-q.y)<G*.5&&now-L.t>380&&now-L.t<4000;STPK.q=q;STPK.t=now;if(d.sel==null)return;setTimeout(()=>{try{if(selS!==d.sel)return;const C=stCands(q);const ix=C.findIndex(z=>z.id===selS);if(ix<0||C.length<2)return;if(!same){if(ix===0)return;selS=C[0].id;partsUI();tools();draw();return}selS=C[(ix+1)%C.length].id;partsUI();tools();draw();const z=sh(selS);toast(`${esc(z.lb||PN[z.part]||'パーツ')}を選びました（同じ所をタップで切り替え）`)}catch(x){}},0)},true);
+// ---- stage: GL stair handles win over the stage's resize handles where they overlap
+function glHandleFix(){try{if(mode!=='s')return;const gh=[...st.querySelectorAll('[data-glh]')];if(!gh.length)return;const R=gh.map(e=>e.getBoundingClientRect());st.querySelectorAll('[data-h]').forEach(h=>{const b=h.getBoundingClientRect(),cx=b.left+b.width/2,cy=b.top+b.height/2;const hit=R.some(r=>cx>r.left-22&&cx<r.right+22&&cy>r.top-22&&cy<r.bottom+22);if(hit){h.style.display='none';h.setAttribute('pointer-events','none')}});gh.forEach(e=>e.parentNode&&e.parentNode.appendChild(e))}catch(e){}}
+{const _d=draw;draw=function(){const r=_d.apply(this,arguments);if(mode==='s')glHandleFix();return r}}
+// ---- EDIT: the bottom panel fits above the bottom bar and scrolls
+function ctxFit(){try{const c=$('ctx'),sb=$('sbox');if(!c||c.hidden||getComputedStyle(c).display==='none'){if(c)c.style.maxHeight='';if(sb&&sb._ctxmh){sb.style.minHeight='';sb._ctxmh=0;try{fit()}catch(e){}}return}
+if($('app').classList.contains('wide'))return;c.style.maxHeight='';const m=$('mode'),nv=document.documentElement.classList.contains('navc');const lim=nv?innerHeight:(!m||m.hidden||getComputedStyle(m).display==='none'||getComputedStyle(m).position!=='fixed'?innerHeight:m.getBoundingClientRect().top);
+let r=c.getBoundingClientRect();const MIN=84;if(r.bottom<=lim-2)return;
+if(lim-r.top<MIN&&sb){const h=sb.getBoundingClientRect().height,need=MIN-(lim-r.top);const nh=Math.max(150,Math.floor(h-need));if(nh<h){sb.style.minHeight=nh+'px';sb.style.height=nh+'px';sb._ctxmh=1;try{fit()}catch(e){}r=c.getBoundingClientRect()}}
+c.style.maxHeight=Math.max(56,Math.floor(lim-r.top-4))+'px'}catch(e){}}
+{const _c=ctxUI;ctxUI=function(){const r=_c.apply(this,arguments);ctxFit();requestAnimationFrame(ctxFit);return r}}
+addEventListener('resize',()=>setTimeout(ctxFit,80));
+// ---- collapsed menu button: always coloured, follows every page change
+{const _n=navUI;navUI=function(){const r=_n.apply(this,arguments);try{const o=$('navo');if(o){const m=typeof mode!=='undefined'?mode:'f',k=m==='q'?'q':m==='s'?'s':'f';o.dataset.md=k;o.innerHTML=IC[{f:'fo',q:'song',s:'st'}[k]]||''}}catch(e){}return r}}
+{const _m=modeUI;modeUI=function(){const r=_m.apply(this,arguments);try{navUI()}catch(e){}return r}}
+// ---- stage: "select several" mode has its own bar with a clear way out
+function grpBar(){const el=$('sbar');if(!el||!GRPM)return;const n=GRPM.ids.size;el.innerHTML=`<div class="sbr grpsb"><span class="grpst"><b>${n}個を選択中</b><small>パーツをタップで追加・解除</small></span><span class="grpbt"><button data-sb="gdup"${n?'':' disabled'}>${IC.copy}<small>複製</small></button><button data-sb="gdel"${n?'':' disabled'}>${IC.del}<small>削除</small></button><button data-sb="grp"${n<2?' disabled':''}>${IC.join}<small>グループ</small></button>${GRPM.g0!=null?`<button data-sb="ugrp">${IC.unchain}<small>解除</small></button>`:''}<button data-sb="gfin" class="grpok">完了</button></span></div>`}
+{const _r=stRow;stRow=function(){if(typeof GRPM!=='undefined'&&GRPM){grpBar();return}return _r.apply(this,arguments)}}
+{const _g=grpUI;grpUI=function(){const r=_g.apply(this,arguments);try{if(GRPM)grpBar()}catch(e){}return r}}
+// tapping an empty spot leaves the mode
+{let gd=null;st.addEventListener('pointerdown',e=>{gd=GRPM&&mode==='s'?{x:e.clientX,y:e.clientY,hit:!!(e.target.closest&&e.target.closest('[data-s]'))}:null},true);st.addEventListener('pointerup',e=>{if(!gd||!GRPM)return;const g=gd;gd=null;if(g.hit||Math.hypot(e.clientX-g.x,e.clientY-g.y)>8)return;try{const q=P(e);if(stCands(q).length)return}catch(x){}GRPM=null;grpUI();tools();draw()},true)}
+
+{const _v=venShapes;venShapes=function(){const o=_v.apply(this,arguments);try{o.forEach(q=>q.y+=3*G)}catch(e){}return o}}
+
+// ===== V205: one route through every kind of stairs
+// (set floors ⇄ set stairs ⇄ stage ⇄ stage stairs / steps ⇄ GL stairs ⇄ GL exit)
+var RTC=new Map(),RTK=-1,AUTO0=null;
+function rtGH(p){try{return HAT0?HAT0({x:p.x,y:p.y}):hAt({x:p.x,y:p.y})}catch(e){return 0}}
+function rtPip(V,p){let c=false;for(let i=0,j=V.length-1;i<V.length;j=i++){if(((V[i].y>p.y)!==(V[j].y>p.y))&&(p.x<(V[j].x-V[i].x)*(p.y-V[i].y)/(V[j].y-V[i].y)+V[i].x))c=!c}return c}
+function rtInSt(p){for(const z of S.shapes){if(z.gk==='stairs'&&inShp(z,p))return true}try{for(const {G0} of glGeos()){if(G0&&G0.g&&rtPip(G0.g.P,p))return true}}catch(e){}return false}
+// a sudden height change on the straight line between a and b (stairs and slopes are fine)
+function rtDrop(a,b){const L=Math.hypot(b.x-a.x,b.y-a.y),n=Math.min(90,Math.max(2,Math.ceil(L/(G*.22))));let ph=rtGH(a),pin=rtInSt(a);for(let i=1;i<=n;i++){const t=i/n,p={x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t},h=rtGH(p),ins=rtInSt(p);if(!ins&&!pin&&Math.abs(h-ph)>.3)return true;ph=h;pin=ins}return false}
+function rtLen(P){let l=0;for(let i=0;i<P.length-1;i++)l+=Math.hypot(P[i+1].x-P[i].x,P[i+1].y-P[i].y);return l}
+// height of the ground at p, including GL stairs (sloped between their two ends)
+function rtGLg(p){try{for(const {G0} of glGeos()){const g=G0&&G0.g;if(g&&rtPip(g.P,p)){const vx=g.c1.x-g.c0.x,vy=g.c1.y-g.c0.y,l2=vx*vx+vy*vy||1,t=Math.max(0,Math.min(1,((p.x-g.c0.x)*vx+(p.y-g.c0.y)*vy)/l2));return g.h0+(g.h1-g.h0)*t}}}catch(e){}return null}
+function rtH(p){const h=rtGLg(p);return h!=null?h:rtGH(p)}
+// walkable grid: neighbours connect when the height changes gently (slopes, steps, stairs)
+var RTG=null;
+function rtGrid(){if(RTG&&RTG.k===KV&&RTG.W===W&&RTG.H===H)return RTG;const cs=Math.max(8,G*.45),nx=Math.ceil(W/cs)+1,ny=Math.ceil(H/cs)+1,h=new Float32Array(nx*ny),br=new Uint8Array(nx*ny);for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){const p={x:i*cs,y:j*cs},k=j*nx+i;const g=rtGLg(p);if(g!=null){h[k]=g;br[k]=1}else{h[k]=rtGH(p);if(rtInSt(p))br[k]=1}}RTG={k:KV,W,H,cs,nx,ny,h,br};return RTG}
+function rtAstar(a,b){const R=rtGrid(),{cs,nx,ny,h,br}=R,cl=p=>[Math.max(0,Math.min(nx-1,Math.round(p.x/cs))),Math.max(0,Math.min(ny-1,Math.round(p.y/cs)))];const [ai,aj]=cl(a),[bi,bj]=cl(b),s=aj*nx+ai,t=bj*nx+bi;if(s===t)return[a,b];
+const N=nx*ny,gs=new Float32Array(N).fill(1e9),fr=new Int32Array(N).fill(-1),done=new Uint8Array(N);const heap=[];const push=(k,f)=>{heap.push([f,k]);let i=heap.length-1;while(i>0){const q=(i-1)>>1;if(heap[q][0]<=heap[i][0])break;[heap[q],heap[i]]=[heap[i],heap[q]];i=q}};const pop=()=>{const r=heap[0],l=heap.pop();if(heap.length){heap[0]=l;let i=0;for(;;){const L=2*i+1,Rr=L+1;let m=i;if(L<heap.length&&heap[L][0]<heap[m][0])m=L;if(Rr<heap.length&&heap[Rr][0]<heap[m][0])m=Rr;if(m===i)break;[heap[m],heap[i]]=[heap[i],heap[m]];i=m}}return r};
+const hx=k=>{const i=k%nx,j=(k-i)/nx;return Math.hypot(i-bi,j-bj)};gs[s]=0;push(s,hx(s));let it=0;
+while(heap.length&&it++<N*4){const [,k]=pop();if(done[k])continue;done[k]=1;if(k===t)break;const i=k%nx,j=(k-i)/nx;for(let dj=-1;dj<=1;dj++)for(let di=-1;di<=1;di++){if(!di&&!dj)continue;const ii=i+di,jj=j+dj;if(ii<0||jj<0||ii>=nx||jj>=ny)continue;const n=jj*nx+ii;if(done[n])continue;let pen=0;const dh=Math.abs(h[k]-h[n]);if(!br[k]&&!br[n]&&dh>.32){if(Math.min(h[k],h[n])<.12||dh>1.2)continue;pen=30}if(br[k]!==br[n]&&dh>.45)continue;const c=gs[k]+(di&&dj?1.4142:1)+pen;if(c<gs[n]){gs[n]=c;fr[n]=k;push(n,c+hx(n))}}}
+if(fr[t]<0)return null;const P=[];for(let k=t;k>=0&&k!==s;k=fr[k]){const i=k%nx,j=(k-i)/nx;P.push({x:i*cs,y:j*cs})}P.reverse();P.unshift({x:a.x,y:a.y});P[P.length-1]={x:b.x,y:b.y};
+// pull the string tight where the straight line stays on safe ground
+const Q=[P[0]];let i=0;while(i<P.length-1){let j=P.length-1;while(j>i+1&&rtDrop2(P[i],P[j]))j--;Q.push(P[j]);i=j}return Q}
+// like rtDrop but also treats GL stairs as part of the ground
+function rtDrop2(a,b){const L=Math.hypot(b.x-a.x,b.y-a.y),n=Math.min(120,Math.max(2,Math.ceil(L/(G*.18))));let ph=rtH(a),pb=rtGLg(a)!=null||rtInSt(a);for(let i=1;i<=n;i++){const t=i/n,p={x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t},gl=rtGLg(p),ins=gl!=null||rtInSt(p),h=gl!=null?gl:rtGH(p);if(Math.abs(h-ph)>(ins||pb?.45:.32))return true;ph=h;pb=ins}return false}
+function rtSafe(P){for(let i=0;i<P.length-1;i++)if(rtDrop2(P[i],P[i+1]))return false;return true}
+function rtLeg(a,b){if(!rtDrop2(a,b))return{P:[{x:a.x,y:a.y},{x:b.x,y:b.y}],ST:{}};try{const P0=AUTO0&&AUTO0({x:a.x,y:a.y},{x:b.x,y:b.y});if(P0&&P0.length>2&&rtSafe(P0))return{P:P0.map(p=>({x:p.x,y:p.y})),ST:{}}}catch(e){}const P=rtAstar(a,b);return P?{P,ST:{}}:null}
+function rtJoin(parts){const P=[],ST={};parts.forEach(R=>{if(!R)return;let off=P.length;R.P.forEach((p,i)=>{if(i===0&&P.length){const l=P[P.length-1];if(Math.hypot(l.x-p.x,l.y-p.y)<.5){off=P.length-1;return}}P.push({x:p.x,y:p.y})});Object.keys(R.ST||{}).forEach(k=>{ST[off+ +k]=R.ST[k]})});return{P,ST}}
+function rtFull(A,B){const fa=A.fl||0,fb=B.fl||0,ga=!!(A.off&&A.off[0]==='g'),gb=!!(B.off&&B.off[0]==='g');const parts=[];let a={x:A.x,y:A.y},b={x:B.x,y:B.y},tail=null;
+const same=fa>0&&fb>0&&A.fs!=null&&A.fs===B.fs;if(same)return null;
+if(fa>0){const R=flRoute(A,{x:A.x,y:A.y,fl:0,fs:A.fs});if(!R)return null;const P=R.P.slice(0,-1);parts.push({P,ST:R.ST});a=P[P.length-1]}
+if(fb>0){const R=flRoute({x:B.x,y:B.y,fl:0,fs:B.fs},B);if(!R)return null;const ST={};Object.keys(R.ST).forEach(k=>{if(+k>=1)ST[+k-1]=R.ST[k]});tail={P:R.P.slice(1),ST};b=tail.P[0]}
+let mid=null;
+if(!mid)mid=rtLeg(a,b);if(!mid)return null;
+parts.push(mid);if(tail)parts.push(tail);const J=rtJoin(parts);J.fa=fa;J.fb=fb;J.fsA=A.fs;J.fsB=B.fs;return J}
+function rtEval(R,t){const P=R.P,L=[];let tot=0;for(let k=0;k<P.length-1;k++){const l=Math.hypot(P[k+1].x-P[k].x,P[k+1].y-P[k].y)*(R.ST[k]?1.6:1);L.push(l);tot+=l}let g=Math.max(0,Math.min(1,t))*tot,k=0;while(k<L.length-1&&g>L[k]){g-=L[k];k++}const u=L[k]?Math.min(1,g/L[k]):1,x=P[k].x+(P[k+1].x-P[k].x)*u,y=P[k].y+(P[k+1].y-P[k].y)*u;let fl=R.fa;for(let j=0;j<k;j++)if(R.ST[j])fl=R.ST[j].f;let h=null;if(R.ST[k]){h=R.ST[k].h0+(R.ST[k].h1-R.ST[k].h0)*u;if(u>=.5)fl=R.ST[k].f}return{x,y,h,fl}}
+// which moves need the combined route
+function rtNeed(A,q){const fa=A.fl||0,fb=q.fl||0,ga=!!(A.off&&A.off[0]==='g'),gb=!!(q.off&&q.off[0]==='g');if((A.off&&!ga)||(q.off&&!gb))return false;
+if(fa>0&&fb>0&&A.fs===q.fs)return false;
+if(fa>0||fb>0)return true;
+if(ga||gb)return false;
+const hA=rtGH(A),hB=rtGH(q);if(Math.abs(hA-hB)>=.3&&Math.min(hA,hB)<=.12&&glAny())return false;
+let P0=null;try{P0=AUTO0&&AUTO0(A,q)}catch(e){}if(P0&&P0.length>1)return !rtSafe(P0);return rtDrop2(A,q)}
+function rtGet(A,q,key){if(RTK!==KV){RTC.clear();RTK=KV}if(RTC.has(key))return RTC.get(key);let R=null;try{R=rtNeed(A,q)?rtFull(A,q):null}catch(e){R=null}RTC.set(key,R);return R}
+{const _p=posAtD;posAtD=function(x,id,i0){const r=_p.apply(this,arguments);try{if(!r||!S)return r;const K=S.kf;let i=i0;if(i==null){i=0;while(i+1<K.length&&K[i+1].c<=x)i++}let a=i;while(a>0&&!keyed(K[a],id))a--;let n=i+1;while(n<K.length&&!keyed(K[n],id))n++;const A=K[a].p[id];if(!A||n>=K.length)return r;const N=K[n],q=N.p[id];if(!q)return r;
+const own=(N.pth&&N.pth[id]&&N.pth[id].length)||N.rot;if(own)return r;const m=mvFor(K,n,id),sk=N.c-m;if(x<=sk)return r;
+const R=rtGet(A,q,a+'|'+n+'|'+id+'|'+[A.x,A.y,A.fl,A.fs,A.off,q.x,q.y,q.fl,q.fs,q.off].join(','));if(!R)return r;
+const t=eio(Math.min(1,(x-sk)/m)),v=rtEval(R,t);const fs=v.fl>0?(t<.5?(R.fsA!=null?R.fsA:R.fsB):(R.fsB!=null?R.fsB:R.fsA)):null;
+let hz=v.h;if(hz==null){if(v.fl>0){const F=fs!=null&&sh(fs);hz=F&&F.gk==='fl'?flH(F,Math.min(v.fl,flN(F)-1)):rtH(v)}else hz=rtH(v)}
+const o={...r,x:v.x,y:v.y,hz};delete o.fl;delete o.fs;if(v.fl>0){o.fl=v.fl;o.fs=fs}if(t<1&&o.off)delete o.off;return o}catch(e){return r}}}
+{const _a=autoPL;AUTO0=function(){return _a.apply(this,arguments)};autoPL=function(A,q){try{if(A&&q&&S){const R=rtGet(A,q,'pl|'+[A.x,A.y,A.fl,A.fs,A.off,q.x,q.y,q.fl,q.fs,q.off].join(','));if(R&&R.P.length>2)return R.P}}catch(e){}return _a.apply(this,arguments)}}
+
+// ---- PDF: when one stage is chosen, the page shows that stage only; sets and GL stairs are always inside the frame
+{const _e=exCrop;exCrop=function(idxs){const r=_e.apply(this,arguments);try{if(!S||(S.bgOnly))return r;let x1=1e9,y1=1e9,x2=-1e9,y2=-1e9;const add=(a,b,c,d)=>{x1=Math.min(x1,a);y1=Math.min(y1,b);x2=Math.max(x2,c);y2=Math.max(y2,d)};
+if(vw!=='all'){const P=S.shapes.filter(q=>!q.gk&&q.t!=='i'&&act(q));if(!P.length)return r;P.forEach(q=>add(q.x,q.y,q.x+q.w,q.y+q.h));const B={x1,y1,x2,y2};S.shapes.forEach(q=>{if(!q.gk||q.t==='i')return;const cx=q.x+q.w/2,cy=q.y+q.h/2;if(cx>=B.x1&&cx<=B.x2&&cy>=B.y1&&cy<=B.y2)add(q.x,q.y,q.x+q.w,q.y+q.h)});try{glGeos().forEach(({q,G0})=>{if(P.includes(q))G0.g.P.forEach(p=>add(p.x,p.y,p.x,p.y))})}catch(e){}
+const m=G*1.2;x1-=m;x2+=m;y1-=m;y2+=m+G*1.4;if(S.flip){[x1,x2]=[W-x2,W-x1];[y1,y2]=[H-y2,H-y1]}return{x:x1,y:y1,w:x2-x1,h:y2-y1}}
+if(!r)return r;S.shapes.forEach(q=>{if(q.gk==='fl'&&act(q))add(q.x,q.y,q.x+q.w,q.y+q.h)});try{glGeos().forEach(({G0})=>G0.g.P.forEach(p=>add(p.x,p.y,p.x,p.y)))}catch(e){}if(x1>x2)return r;const m=G*.8;x1-=m;y1-=m;x2+=m;y2+=m;if(S.flip){[x1,x2]=[W-x2,W-x1];[y1,y2]=[H-y2,H-y1]}const X1=Math.min(r.x,x1),Y1=Math.min(r.y,y1),X2=Math.max(r.x+r.w,x2),Y2=Math.max(r.y+r.h,y2);return{x:X1,y:Y1,w:X2-X1,h:Y2-Y1}}catch(e){return r}}}
+// icons never get tiny on a big drawing: raise their size for the printout only
+{const _r=renderFrames0;renderFrames0=async function(idxs,prog,part){const s0=S.isz;try{const sv=vw;vw=part||'all';let CB=null;try{CB=exCrop(idxs)}catch(e){}vw=sv;if(CB){const k=Math.min(555/CB.w,((FVPDF&&flSets().length)?300:470)/CB.h),want=7.5/k,cur=S.isz||16;if(want>cur)S.isz=Math.min(cur*1.8,want)}}catch(e){}try{return await _r.apply(this,arguments)}finally{if(s0==null)delete S.isz;else S.isz=s0}}}
+// ---- video: the floor plan is drawn exactly like the app (sets, stairs, GL stairs …)
+var VBGI=null,VFRONT=null;
+function vidInline(src,dst){const P=['fill','fill-opacity','stroke','stroke-width','stroke-opacity','stroke-dasharray','stroke-linecap','stroke-linejoin','opacity','font-size','font-weight','font-family','text-anchor','dominant-baseline','paint-order','visibility'];const a=src.querySelectorAll('*'),b=dst.querySelectorAll('*');for(let i=0;i<a.length&&i<b.length;i++){const cs=getComputedStyle(a[i]);if(cs.display==='none'){b[i].setAttribute('display','none');continue}let st='';P.forEach(k=>{const v=cs.getPropertyValue(k);if(v)st+=k+':'+v+';'});b[i].setAttribute('style',st)}}
+async function vidBgPrep(V,cw){VBGI=null;try{const sv={mode,selS,selM,vw,multi,box,cur:S.cur,gh:S.gh,lt:S.lt,ex:exporting,hid:new Set(HID)},sl={f:new Set(SL.f),m:new Set(SL.m),s:new Set(SL.s)},ma=memoAt;
+try{mode='f';selS=selM=null;vw=exPart;multi=false;box=null;S.gh=0;SL.f.clear();SL.m.clear();SL.s.clear();S.dancers.forEach(d=>HID.add(d.id));S.lt=null;memoAt=()=>null;exporting=false;draw();
+const src=$('stage'),cl=src.cloneNode(true);vidInline(src,cl);const ch=Math.round(cw*V.h/V.w);const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${V.x} ${V.y} ${V.w} ${V.h}" width="${cw}" height="${ch}"><rect x="${V.x-V.w}" y="${V.y-V.h}" width="${V.w*3}" height="${V.h*3}" fill="#0b0c10"/>${cl.innerHTML}</svg>`;VBGI=await loadImg('data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg))}
+finally{memoAt=ma;mode=sv.mode;selS=sv.selS;selM=sv.selM;vw=sv.vw;multi=sv.multi;box=sv.box;S.cur=sv.cur;S.gh=sv.gh;S.lt=sv.lt;exporting=sv.ex;HID.clear();sv.hid.forEach(i=>HID.add(i));SL.f=sl.f;SL.m=sl.m;SL.s=sl.s;setVB();zoom();draw()}}catch(e){VBGI=null}}
+// ---- video seen from the audience (front view)
+async function vidFrontV(cw){try{const R=frvSvg({},false);const VB=R.VB,ch=Math.round(cw*VB.h/VB.w);const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${VB.x} ${VB.y} ${VB.w} ${VB.h}" width="${cw}" height="${ch}"><rect x="${VB.x}" y="${VB.y}" width="${VB.w}" height="${VB.h}" fill="#0b0c10"/>${R.h.replace(/var\(--ink\)/g,'#e8eaf0')}</svg>`;VFRONT={img:await loadImg('data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)),VB};return{x:VB.x,y:VB.y,w:VB.w,h:VB.h,front:1}}catch(e){VFRONT=null;return null}}
+function vidFrameF(ctx,cw,ch,capH,V,x,kun){const F=VFRONT,VB=F.VB,k=cw/VB.w,u=M2P(),pos=posAt(x),c=Math.min(S.scenes.length-1,Math.floor(x)),fx=v=>S.flip?2*S.cx-v:v;ctx.fillStyle='#0b0c10';ctx.fillRect(0,0,cw,ch);ctx.drawImage(F.img,0,capH,cw,ch-capH);
+const R0=(S.isz||16)*.9*k,L=[];S.dancers.forEach(d=>{const p=pos[d.id];if(!p||p.off||HID.has(d.id))return;L.push({d,p,X:(fx(p.x)-VB.x)*k,Y:capH+(-(p.hz!=null?p.hz:hAt(p))*u-VB.y)*k})});L.sort((a,b)=>a.p.y-b.p.y);
+L.forEach(({d,p,X,Y})=>{const R1=R0*dsz(d),Ht=R1*3.4,hr=R1*.55;ctx.save();ctx.translate(X,Y);ctx.fillStyle=d.color;ctx.strokeStyle=ringOf(d);ctx.lineWidth=Math.max(1.5,R1*.08);ctx.lineJoin='round';ctx.beginPath();ctx.arc(0,-Ht+hr,hr,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.beginPath();ctx.moveTo(-R1*.55,-Ht+hr*2.3);ctx.quadraticCurveTo(0,-Ht+hr*1.9,R1*.55,-Ht+hr*2.3);ctx.lineTo(R1*.42,-Ht*.42);ctx.lineTo(R1*.3,0);ctx.lineTo(R1*.06,0);ctx.lineTo(0,-Ht*.38);ctx.lineTo(-R1*.06,0);ctx.lineTo(-R1*.3,0);ctx.lineTo(-R1*.42,-Ht*.42);ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle='#e8eaf0';ctx.font=`700 ${Math.max(10,Math.round(R1*.75))}px ${FF}`;ctx.textAlign='center';ctx.textBaseline='alphabetic';ctx.fillText(d.name,0,-Ht-hr*.9);ctx.restore()});
+const cp=capOf(c);ctx.fillStyle='#0b0c10';ctx.fillRect(0,0,cw,capH);ctx.textAlign='left';ctx.textBaseline='top';ctx.fillStyle='#fff';{const sc=capH/110;ctx.font=`700 ${Math.round(36*sc)}px ${FF}`;ctx.fillText(`${cp.a}  ${cp.b}${cp.f?'  「'+cp.f+'」':''}`,28*sc,20*sc);ctx.font=`${Math.round(26*sc)}px ${FF}`;ctx.fillStyle='#a3a8b6';ctx.fillText(`${cp.t}   ▼ 客席から見た図${cp.ly?'   ♪ '+cp.ly:''}`,28*sc,66*sc)}
+if(kun.complete&&kun.naturalWidth){const kh=70,kw=kun.naturalWidth*kh/kun.naturalHeight;ctx.globalAlpha=.85;ctx.drawImage(kun,cw-kw-150,ch-kh-14,kw,kh);ctx.fillStyle='#fff';ctx.font=`700 22px ${FF}`;ctx.textBaseline='middle';ctx.fillText('FORM8ER',cw-140,ch-14-kh/2);ctx.globalAlpha=1}}
+{const _v=vidFrame;vidFrame=function(ctx,cw,ch,capH,V,x,kun){if(V&&V.front&&VFRONT)return vidFrameF.apply(this,arguments);return _v.apply(this,arguments)}}
+async function vidPrep(V0){const cw=isPlus()?1920:720;if(XP&&XP.vv==='front'){const F=await vidFrontV(cw);if(F)return F}await vidBgPrep(V0,cw);return V0}
+function vidDone(){VBGI=null;VFRONT=null}
+
+// ===== V206
+// ---- route: landings keep the height of the flight before them; GL exits use the same route
+function rtFill(ST,n){const ks=Object.keys(ST).map(Number).sort((a,b)=>a-b);if(!ks.length)return ST;let prev=null;for(let k=ks[0];k<=ks[ks.length-1]&&k<n;k++){if(ST[k]&&!ST[k].flat)prev=ST[k];else if(prev&&!ST[k])ST[k]={h0:prev.h1,h1:prev.h1,f:prev.f,flat:1}}return ST}
+function rtFull(A,B){const fa=A.fl||0,fb=B.fl||0;const parts=[];let a={x:A.x,y:A.y},b={x:B.x,y:B.y},tail=null;
+if(fa>0&&fb>0&&A.fs!=null&&A.fs===B.fs)return null;
+if(fa>0){const R=flRoute(A,{x:A.x,y:A.y,fl:0,fs:A.fs});if(!R)return null;const P=R.P.slice(0,-1);parts.push({P,ST:rtFill({...R.ST},P.length-1)});a=P[P.length-1]}
+if(fb>0){const R=flRoute({x:B.x,y:B.y,fl:0,fs:B.fs},B);if(!R)return null;const ST={};Object.keys(R.ST).forEach(k=>{if(+k>=1)ST[+k-1]=R.ST[k]});const P=R.P.slice(1);tail={P,ST:rtFill(ST,P.length-1)};b=P[0]}
+const mid=rtLeg(a,b);if(!mid)return null;parts.push(mid);if(tail)parts.push(tail);const J=rtJoin(parts);J.fa=fa;J.fb=fb;J.fsA=A.fs;J.fsB=B.fs;return J}
+function rtEval(R,t){const P=R.P,L=[];let tot=0;for(let k=0;k<P.length-1;k++){const s=R.ST[k],l=Math.hypot(P[k+1].x-P[k].x,P[k+1].y-P[k].y)*(s&&!s.flat?1.6:1);L.push(l);tot+=l}let g=Math.max(0,Math.min(1,t))*tot,k=0;while(k<L.length-1&&g>L[k]){g-=L[k];k++}const u=L[k]?Math.min(1,g/L[k]):1,x=P[k].x+(P[k+1].x-P[k].x)*u,y=P[k].y+(P[k+1].y-P[k].y)*u;let fl=R.fa;for(let j=0;j<k;j++)if(R.ST[j])fl=R.ST[j].f;let h=null;const s=R.ST[k];if(s){h=s.h0+(s.h1-s.h0)*u;if(u>=.5||s.flat)fl=s.f}return{x,y,h,fl}}
+function rtNeed(A,q){const fa=A.fl||0,fb=q.fl||0,ga=!!(A.off&&A.off[0]==='g'),gb=!!(q.off&&q.off[0]==='g');if((A.off&&!ga)||(q.off&&!gb))return false;
+if(fa>0&&fb>0&&A.fs===q.fs)return false;if(fa>0||fb>0||ga!==gb)return true;if(ga&&gb)return false;
+let P0=null;try{P0=AUTO0&&AUTO0(A,q)}catch(e){}if(P0&&P0.length>1)return !rtSafe(P0);return rtDrop2(A,q)}
+// ---- path handles keep a finger-friendly size however far the drawing is zoomed out
+function phFix(){try{if(!st)return;const s=Math.max(1,24/(16*(Z||1)));st.querySelectorAll('g[data-pi],g[data-pw]').forEach(g=>{const t=g.getAttribute('transform')||'';if(/scale\(/.test(t))return;g.setAttribute('transform',t+` scale(${s.toFixed(3)})`)})}catch(e){}}
+{const _d=draw;draw=function(){const r=_d.apply(this,arguments);if(mode==='f')phFix();return r}}
+// ---- saving dialog: the stop button reacts on touch and is not rebuilt under the finger
+{const _u=xpUI;xpUI=function(){const el=$('xpp');if(!el||!XJ)return;const c=el.querySelector('.xpc');if(c&&c.dataset.cn===String(!!XJ.cancel)){const b=c.querySelector('b'),i=c.querySelector('.xpbar i'),sp=c.querySelector('.xppc');if(b)b.textContent=XJ.cancel?'中止しています…':XJ.t;if(i)i.style.width=Math.round(XJ.p)+'%';if(sp)sp.textContent=XJ.sub||('保存中 '+Math.round(XJ.p)+'%');return}_u.apply(this,arguments);const c2=el.querySelector('.xpc');if(c2)c2.dataset.cn=String(!!XJ.cancel)}}
+document.addEventListener('pointerdown',e=>{const b=e.target.closest&&e.target.closest('#xpp [data-xp]');if(!b||b.disabled||!XJ)return;e.preventDefault();e.stopPropagation();XPPD=Date.now();xpAskCancel()},true);
+var XPPD=0;document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('#xpp [data-xp]')&&Date.now()-XPPD<800){e.stopPropagation();e.preventDefault()}},true);
+// ---- nothing that needs a project runs on the home screen
+{const _s=setVB;setVB=function(){if(!S)return;return _s.apply(this,arguments)}}
+{const _f=fit;fit=function(){if(!S)return;return _f.apply(this,arguments)}}
+{const _z=zoom;zoom=function(){if(!S)return;return _z.apply(this,arguments)}}
 
 let songOpen=-1;
 function lyrAt(c){const sg=segAt(c),bs=S.segs[sg.i].b||8,k8=sg.a+Math.floor((c-sg.a)/bs)*bs,k4=sg.a+Math.floor((c-sg.a)/4)*4;return (S.scenes[k4]||{}).lyr||(S.scenes[k8]||{}).lyr||''}
